@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-29T20:16:34.422Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="mfUnThRZ67ZUKt1TWa3E" version="23.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-29T20:19:17.495Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="xOMCBbUJOUk3F6GlJqv7" version="23.0.2" type="github">
   <diagram name="Page-1" id="P7TLeiTiltHmnGCo5MTN">
     <mxGraphModel dx="1114" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -38,7 +38,7 @@
           <mxGeometry x="340" y="340" width="190" height="40" as="geometry" />
         </mxCell>
         <mxCell id="sqn5vPOxeCrrnbe9mnzl-20" value="Gestion service touristique" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="340" y="390" width="200" height="40" as="geometry" />
+          <mxGeometry x="355" y="390" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="sqn5vPOxeCrrnbe9mnzl-21" value="Recevoire notification" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="340" y="440" width="210" height="40" as="geometry" />
@@ -90,6 +90,21 @@
             <mxPoint x="390" y="340" as="sourcePoint" />
             <mxPoint x="440" y="290" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="sqn5vPOxeCrrnbe9mnzl-39" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="585" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sqn5vPOxeCrrnbe9mnzl-41" value="Traitement d&#39;events et service touristique" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="560" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sqn5vPOxeCrrnbe9mnzl-42" value="Accepter" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="530" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sqn5vPOxeCrrnbe9mnzl-43" value="Refuser" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="580" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sqn5vPOxeCrrnbe9mnzl-44" value="Connsulter statistique" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="645" width="250" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
