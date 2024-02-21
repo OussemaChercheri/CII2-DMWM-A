@@ -32,4 +32,5 @@ export class SideNavComponent {
   faPuzzlePiece = faPuzzlePiece;
   faChartSimple =  faChartSimple;
   faDna = faDna;
+
 }

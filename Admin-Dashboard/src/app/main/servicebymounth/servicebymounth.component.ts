@@ -31,7 +31,6 @@ export class ServicebymounthComponent {
     ],
     credits: {
       enabled: false
-
     }
 });
 
