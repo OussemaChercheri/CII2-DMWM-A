@@ -10,7 +10,7 @@ La problématique à résoudre réside dans la difficulté rencontrée lors de l
 
 ### Solution proposée:
 
-La solution proposée consiste en la création d'un site web "Annestouna" en utilisant NodeJs pour le backend et Angular pour le frontend, avec MySQL.
+La solution proposée consiste en la création d'un site web "Annestouna" en utilisant NodeJs pour le backend et Angular pour le frontend, avec Mongodb.
 
 #### Les fonctionnalités clés:
 
