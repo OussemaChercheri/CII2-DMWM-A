@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const serviceRoute = require('./routes/touristicServices.route');
+const serviceRoute = require('./routes/touristicServices.routes');
 const app = express();
 
 //middleware
