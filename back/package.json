@@ -2,7 +2,7 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,8 +11,11 @@
   "author": "Ons",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.2.0",
     "nodemon": "^3.0.3"
   }
 }
