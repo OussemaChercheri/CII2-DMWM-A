@@ -5,7 +5,7 @@ const port=3000;
 const authorApi=require('./src/routes/author')
 
 app.use('/author',authorApi);
-
+app.use(express.json());
 
 
 
