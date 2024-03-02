@@ -70,20 +70,42 @@ router.post('/login', async (req, res) => {
 
 
 // Get all authors
-router.get('/all', (req, res) => {
+router.get('/all', (req, res) =>{
+    Author.find({})
+    .then(
+        (authors)=>{
+            res.status(200).send(authors);
+        }
+    )
+    .catch(
+        (err)=>{
+            res.status(400).send(err);
+        }
+    )
+
 
 });
 
 // Get author by ID
 router.get('/getbyId/:id', (req, res) => {
-});
-
-// Delete author by ID
-router.delete('/delete/:id', (req, res) => {
+    let id =req.params.id;
+    Author.findById(id)
+    .then(
+        (author)=>{
+            res.status(200).send(author);
+        }
+    ).catch(
+        (err)=>{
+            res.status(400).send(err);
+        }
+        )
 });
 
 // Update author by ID
 router.put('/update/:id', (req, res) => {
 });
 
+// Delete author by ID
+router.delete('/delete/:id', (req, res) => {
+});
 module.exports = router;
