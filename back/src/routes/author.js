@@ -3,10 +3,10 @@ const router = express.Router();
 const Author = require('../models/author');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
-const jwt =require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mystorage = multer.diskStorage({
-    destination: '.images',
+    destination: '/.images',
     filename: (req, file, redirect) => {
         const date = Date.now();
         const file1 = date + '.' + file.mimetype.split('/')[1];
@@ -37,48 +37,41 @@ router.post('/register', upload.any('image'), (req, res) => {
 });
 
 //Login
-router.post('/login', (req, res) => {
-    let data=req.body;
-    
-   
-    if (!data || !data.email) {
-        return res.status(400).send('Invalid request email is missing');
-    }
-    Author.findOne({email:data.email})//bch ntestou bl mail
-    .then(
-        (author)=>{
-            if(!author)
-            {
-                res.status(404).send('Author is not found');
-            }else{
-                let valid=bcrypt.compareSync(data.password, author.password)
-                if (!valid){
-                    res.status(401).send('email or password invalid');
-                }else{
-                   
-                    let payload = {
-                        _id:author._id,
-                        email:author.email,
-                        fullname:author.name + '' + author.lastName
-                    }
-                    //nasn3ou token bl var li feh les attributs w secret key li nverifiw bih token 
-                    let token=jwt.sign(payload,'annestouna123');
-                    res.send({mytokentoken})
-                }
-            }
-        })
-    .catch(
-        (err)=>{
-            console.error(Error,err)
+router.post('/login', async (req, res) => {
+    try {
+        const data = req.body;
+        if (!data || !data.email) {
+            return res.status(400).send('Invalid request email is missing');
         }
-    )
+        const author = await Author.findOne({ email: data.email })//bch ntestou bl mail
+        if (!author) {
+            res.status(404).send('Author is not found');
+        } else {
+            const validpasswrd = bcrypt.compare(data.password, author.password)
+            if (!validpasswrd) {
+                res.status(401).send(' invalid password');
+            } else {
+
+                // let payload = {
+                //     _id:author._id,
+                //     email:author.email,
+                //     fullname:author.name + '' + author.lastName
+                // }
+                //nasn3ou token bl var li feh les attributs w secret key li nverifiw bih token 
+                const token = jwt.sign({ _id: author._id }, 'annestouna123');
+                res.send({ token })
+            }
+        }
+    }catch(err)  {
+        console.error(Error, err)
+    }
 });
 
 
 
 // Get all authors
 router.get('/all', (req, res) => {
-   
+
 });
 
 // Get author by ID

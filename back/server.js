@@ -1,11 +1,12 @@
-const express=require('express');
+const express= require('express');
 const app =express();
 require('./config/connect'); 
 const port=3000;
-const authorApi=require('./src/routes/author')
-
+const authorApi=require('./src/routes/author');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 app.use('/author',authorApi);
-app.use(express.json());
+
 
 
 
