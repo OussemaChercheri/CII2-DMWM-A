@@ -99,13 +99,20 @@ router.get('/getbyId/:id', (req, res) => {
             res.status(400).send(err);
         }
         )
-});
-
-// Update author by ID
-router.put('/update/:id', (req, res) => {
-});
+}); 
 
 // Delete author by ID
 router.delete('/delete/:id', (req, res) => {
+    let id =req.params.id;
+    Author.findByIdAndDelete(id)
+    .then(
+        ()=>{
+            res.status(200).send('user deleted ')
+        }
+    ).catch(
+        (err)=>{
+            res.status(400).send(err);
+        }
+    )
 });
 module.exports = router;
