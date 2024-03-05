@@ -17,7 +17,11 @@ export class ServicebymounthComponent implements OnInit {
         height: 325
       },
       title: {
-        text: 'The progressive number of Events and Touristic Services by month'
+        text: 'The progressive number of Events and Touristic Services by month',
+        style: {
+          fontSize: '20px'  
+        }
+
       },
       xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

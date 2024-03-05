@@ -1,5 +1,7 @@
 const Service = require('../modules/touristicServices.model');
 const multer = require('multer');
+const fs = require('fs').promises;
+const path = require('path');
 
 let filename = '';
 
@@ -32,7 +34,7 @@ const getService = async (req, res) => {
     }
 };
 
-const createService = async (req, res) => { // Move upload.single('image') to here
+const createService = async (req, res) => {
     try {
         upload.single('image')(req, res, async function (err) {
             if (err) {
@@ -53,6 +55,7 @@ const createService = async (req, res) => { // Move upload.single('image') to he
         res.status(500).send(err);
     }
 };
+
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
@@ -81,12 +84,10 @@ const updateService = async (req, res) => {
 
         res.status(200).json(service);
     } catch (error) {
-
         console.error("Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
 
 const deleteService = async (req, res) => {
     try {
@@ -101,10 +102,54 @@ const deleteService = async (req, res) => {
     }
 };
 
+// Function to upload document for a service
+async function uploadDocument(req, res) {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        const serviceId = req.params.id;
+        const service = await Service.findById(serviceId);
+        if (!service) {
+            return res.status(404).json({ message: "Service not found" });
+        }
+
+        // Save the file information to the service document
+        service.document = req.file.originalname; // Assuming you're storing the document name
+
+        await service.save();
+
+        res.status(200).json({ message: "Document uploaded successfully", service });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
+// Function to download document for a service
+async function downloadDocument(req, res) {
+    try {
+        const serviceId = req.params.id;
+        const service = await Service.findById(serviceId);
+        if (!service || !service.document) {
+            return res.status(404).json({ message: "Document not found" });
+        }
+
+        // Send the document as a file attachment
+        res.download(__dirname + '/../documents/' + service.document);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 module.exports = {
     getServices,
     getService,
     createService,
     updateService,
     deleteService,
+    uploadDocument,
+    downloadDocument
 };
