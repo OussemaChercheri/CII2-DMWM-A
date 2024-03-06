@@ -21,9 +21,8 @@ const ServiceSchema = mongoose.Schema(
             type: String,
             required: false
         },
-        documentId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "documentService"
+        document: {
+            type: String,
         },
         video: {
             type: String,

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getServices, getService, createService, updateService, deleteService, uploadDocument, downloadDocument} = require('../controllers/touristicServices.controller');
-
+const {getServices, getService, createService, updateService, deleteService, downloadDocument, getImage} = require('../controllers/touristicServices.controller');
 
 router.get('/', getServices);
 
@@ -13,8 +12,10 @@ router.put("/:id", updateService);
 
 router.delete("/:id", deleteService);
 
-router.post("/upload/:id", uploadDocument);
-router.get("/download/:id", downloadDocument);
+router.get('/download/:id/document', downloadDocument);
+router.get('/getimage/:id', getImage);
+
+
 
 
 

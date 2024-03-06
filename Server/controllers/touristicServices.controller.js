@@ -10,7 +10,7 @@ const mystorage = multer.diskStorage({
     filename: (req, file, redirect) => {
         let date = Date.now();
         let f1 = date + '-' + file.originalname;
-        filename = f1; // Move filename assignment here
+        filename = f1;
         redirect(null, f1);
     }
 });
@@ -36,16 +36,24 @@ const getService = async (req, res) => {
 
 const createService = async (req, res) => {
     try {
-        upload.single('image')(req, res, async function (err) {
+        upload.fields([{ name: 'image', maxCount: 1 }, { name: 'document', maxCount: 1 }])(req, res, async function (err) {
             if (err) {
                 return res.status(400).send(err);
             }
             const data = req.body;
             const service = new Service(data);
-            service.image = filename;
+            
+            // Ensure that each file is properly checked before assignment
+            if (req.files['image'] && req.files['image'][0]) {
+                service.image = req.files['image'][0].filename;
+            }
+
+            if (req.files['document'] && req.files['document'][0]) {
+                service.document = req.files['document'][0].filename;
+            }
+
             try {
                 const saved = await service.save();
-                filename = '';
                 res.status(200).send(saved);
             } catch (err) {
                 res.status(400).send(err);
@@ -56,21 +64,22 @@ const createService = async (req, res) => {
     }
 };
 
+
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
         let updatedData = req.body;
 
-        if (req.file) {
+        if (req.files && req.files['image'] && req.files['image'][0]) {
             const date = Date.now();
-            const newFilename = date + '-' + req.file.originalname;
+            const newFilename = date + '-' + req.files['image'][0].originalname;
             const oldService = await Service.findById(id);
 
             if (!oldService) {
                 return res.status(404).json({ message: "Service not found" });
             }
 
-            const filePath = './uploads/' + oldService.image;
+            const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
             fs.unlinkSync(filePath);
 
             updatedData.image = newFilename;
@@ -89,6 +98,8 @@ const updateService = async (req, res) => {
     }
 };
 
+
+
 const deleteService = async (req, res) => {
     try {
         const { id } = req.params;
@@ -102,47 +113,34 @@ const deleteService = async (req, res) => {
     }
 };
 
-// Function to upload document for a service
-async function uploadDocument(req, res) {
+const downloadDocument = async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ message: "No file uploaded" });
-        }
-
-        const serviceId = req.params.id;
-        const service = await Service.findById(serviceId);
-        if (!service) {
-            return res.status(404).json({ message: "Service not found" });
-        }
-
-        // Save the file information to the service document
-        service.document = req.file.originalname; // Assuming you're storing the document name
-
-        await service.save();
-
-        res.status(200).json({ message: "Document uploaded successfully", service });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error" });
-    }
-}
-
-// Function to download document for a service
-async function downloadDocument(req, res) {
-    try {
-        const serviceId = req.params.id;
-        const service = await Service.findById(serviceId);
+        const service = await Service.findById(req.params.id);
         if (!service || !service.document) {
-            return res.status(404).json({ message: "Document not found" });
+            return res.status(404).json({ message: "Service or document not found" });
         }
-
-        // Send the document as a file attachment
-        res.download(__dirname + '/../documents/' + service.document);
+        const filePath = path.join(__dirname, '..', 'uploads', service.document);
+        res.download(filePath);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error" });
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
+const getImage = async (req, res) => {
+    try {
+        const service = await Service.findById(req.params.id);
+        if (!service || !service.image) {
+            return res.status(404).json({ message: "Service or image not found" });
+        }
+        const imagePath = path.join(__dirname, '..', 'uploads', service.image);
+        res.sendFile(imagePath);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 
 module.exports = {
     getServices,
@@ -150,6 +148,6 @@ module.exports = {
     createService,
     updateService,
     deleteService,
-    uploadDocument,
-    downloadDocument
+    downloadDocument,
+    getImage
 };
