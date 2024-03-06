@@ -4,15 +4,15 @@ const author=mongoose.model('Author',{
     name:{
         type:String
     },
-    lastName:{
-        type:String
-    },
-    adress:{
-        type:String
-    },
-    phone:{
-        type:Number
-    },
+    // lastName:{
+    //     type:String
+    // },
+    // adress:{
+    //     type:String
+    // },
+    // phone:{
+    //     type:Number
+    // },
     email:{
         type:String,
         unique:true//5tr famech mail bch yt3awd
