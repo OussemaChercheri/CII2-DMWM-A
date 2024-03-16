@@ -14,9 +14,6 @@ const ServiceSchema = mongoose.Schema(
             type: Number,
             default: 0
         },
-        duration: {
-            type: Number
-        },
         image: {
             type: String,
             required: false
@@ -24,13 +21,8 @@ const ServiceSchema = mongoose.Schema(
         document: {
             type: String,
         },
-        video: {
-            type: String,
-            required: false
-        },
         contactInfo: {
-            type: String,
-            required: [true, "Please enter a contact information"]
+            type: String
         },
         category: {
             type: String,

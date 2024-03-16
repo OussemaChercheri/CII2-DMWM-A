@@ -68,19 +68,23 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        let updatedData = req.body;
+        let updatedData = {};
 
+        for (const key in req.body) {
+            updatedData[key] = req.body[key];
+        }
+
+        
         if (req.files && req.files['image'] && req.files['image'][0]) {
             const date = Date.now();
             const newFilename = date + '-' + req.files['image'][0].originalname;
-            const oldService = await Service.findById(id);
 
+            const oldService = await Service.findById(id);
             if (!oldService) {
                 return res.status(404).json({ message: "Service not found" });
             }
 
             const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
-            fs.unlinkSync(filePath);
 
             updatedData.image = newFilename;
         }
@@ -88,15 +92,15 @@ const updateService = async (req, res) => {
         const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
 
         if (!service) {
-            return res.status(404).json({ message: "Service not found" });
+        return res.status(404).json({ message: "Service not found" });
         }
-
         res.status(200).json(service);
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 
 

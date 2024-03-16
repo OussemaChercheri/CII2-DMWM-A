@@ -1,0 +1,7 @@
+.img-container {
+    max-width: 100%;  /* Maintain aspect ratio while scaling to container width */
+    height: 200px;  /* Set a desired fixed height for consistent display */
+    object-fit: cover;  /* Maintain aspect ratio when scaling within the height */
+    /* Optional styling for borders, rounded corners, etc. */
+  }
+  

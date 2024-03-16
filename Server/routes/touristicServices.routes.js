@@ -8,7 +8,7 @@ router.get("/:id", getService);
 
 router.post("/", createService);
 
-router.put("/:id", updateService);
+router.patch("/:id", updateService);
 
 router.delete("/:id", deleteService);
 

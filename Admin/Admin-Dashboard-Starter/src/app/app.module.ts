@@ -15,10 +15,12 @@ import { ServicebymounthComponent } from './home/serviceEventsbymounth/serviceby
 import { StatisticsComponent } from './statistics/statistics.component';
 import { TouristicservicesComponent } from './statistics/touristicservices/touristicservices.component';
 import { EventsComponent } from './statistics/events/events.component';
-// Optional - for accessibility features
+
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { ImgPipe } from './pipes/img.pipe';
 
 
 @NgModule({
@@ -36,12 +38,14 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     TouristicservicesComponent,
     EventsComponent,
     EvaluationComponent,
-    AboutusComponent
+    AboutusComponent,
+    ImgPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const serviceRoute = require('./routes/touristicServices.routes');
 const app = express();
+const cors = require('cors');
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 
