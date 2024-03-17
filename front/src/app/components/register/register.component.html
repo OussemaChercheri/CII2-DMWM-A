@@ -4,7 +4,7 @@
     <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
         <app-caroussel></app-caroussel>
     </div>
-    <!-- Right Pane -->
+    
     <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
       <div class="max-w-md w-full p-6">
         <h1 class="text-3xl font-semibold mb-6 text-blue-900 text-center">Sign Up</h1>
@@ -14,22 +14,22 @@
           <!-- Your form elements go here -->
           <div>
             <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-            <input type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
+            <input [(ngModel)]="author.name" type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
           </div>
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700 " >Email</label>
-            <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
+            <input [(ngModel)]="author.email" type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
           </div>
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
+            <input [(ngModel)]="author.password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
           </div>
           <div>
-            <button type="submit" class="w-full bg-blue-900 text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
+            <button (click)="register()" class="w-full bg-blue-900 text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
           </div>
         </form>
         <div class="mt-4 text-sm text-gray-600 text-center">
-          <p>Already have an account? <a href="#" class="text-black hover:underline">Login here</a>
+          <p>Already have an account? <a class="text-black hover:underline" routerLink="/login">Login here</a>
           </p>
         </div>
         <div
