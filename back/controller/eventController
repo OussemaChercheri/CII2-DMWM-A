@@ -14,6 +14,7 @@ const mystorage = multer.diskStorage({
 });
 const upload = multer({ storage: mystorage });
 
+//get all vents
 const getEvents = async (req, res) => {
     try {
         const evenements = await Event.find();
@@ -23,6 +24,7 @@ const getEvents = async (req, res) => {
     }
 };
 
+//get event by id
 const getEvent = async (req, res) => {
     try {
         const evenement = await Event.findById(req.params.id);
@@ -32,6 +34,7 @@ const getEvent = async (req, res) => {
     }
 };
 
+//create event
 const createEvent = async (req, res) => { // Move upload.single('image') to here
     try {
         upload.single('image')(req, res, async function (err) {
@@ -53,6 +56,8 @@ const createEvent = async (req, res) => { // Move upload.single('image') to here
         res.status(500).send(err);
     }
 };
+
+//update event
 const updateEvent = async (req, res) => {
     try {
         const { id } = req.params;
@@ -87,7 +92,7 @@ const updateEvent = async (req, res) => {
     }
 };
 
-
+//delete an event
 const deleteEvent = async (req, res) => {
     try {
         const { id } = req.params;
@@ -101,10 +106,62 @@ const deleteEvent = async (req, res) => {
     }
 };
 
+//get image
+
+//sorting creesing, decreesing,(price),most demande
+
+//search with title
+const searchEventWithTitle = async (req, res) => {
+    try {
+        const evenements = await Event.find();
+        const {title}=req.params;
+        const filtre=[];
+        let j=0;
+        for(let i in evenements){
+            if(evenements[i].title==title){
+                filtre[j]=evenements[i];
+                j++;
+            }
+        }
+        res.status(200).json(filtre);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Error search events' });
+    }
+  }
+ 
+  //search with categorie
+  const searchEventWithCategorie = async (req, res) => {
+    try {
+        const { categorie } = req.params;
+        const evenements = await Event.find({ categorie });
+        res.status(200).json(evenements);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'Error search events' });
+    }
+}
+  
+  //search with date
+const searchEventWithDate = async (req, res) => {
+    try {
+        const { date } = req.params;
+        const events = await Event.find({ date: new Date(date) });
+        res.status(200).json(events);
+      } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'Error search events' });
+      }
+    };
+  
+
 module.exports = {
     getEvents,
     getEvent,
     createEvent,
     updateEvent,
     deleteEvent,
+    searchEventWithTitle,
+    searchEventWithCategorie,
+    searchEventWithDate,
 };
