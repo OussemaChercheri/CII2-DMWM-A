@@ -37,6 +37,9 @@ const eventSchema = mongoose.Schema({
     type: Date,
     
         },
+        nbrtickets:{
+          type:Number,
+        },
   image:{
     type: String, 
   }

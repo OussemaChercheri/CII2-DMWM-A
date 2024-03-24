@@ -108,7 +108,34 @@ const deleteEvent = async (req, res) => {
 
 //get image
 
-//sorting creesing, decreesing,(price),most demande
+//sorting creesing,(price)
+const sortAsc = async (req, res) => {
+    try {
+      const events = await Event.find({});
+      const sortedEvents = events.sort((a, b) => {
+        return a.price - b.price;
+      });
+      res.send(sortedEvents);
+    } catch (e) {
+      console.log(e);
+      res.status(500).send({ message: "Error sort events" });
+    }
+  };
+
+  //sorting decreesing,(price)
+const sortDesc = async (req, res) => {
+    try {
+      const events = await Event.find({});
+      const sortedEvents = events.sort((a, b) => {
+        return  b.price - a.price ;
+      });
+      res.send(sortedEvents);
+    } catch (e) {
+      console.log(e);
+      res.status(500).send({ message: "Error sort events" });
+    }
+  };
+
 
 //search with title
 const searchEventWithTitle = async (req, res) => {
@@ -164,4 +191,6 @@ module.exports = {
     searchEventWithTitle,
     searchEventWithCategorie,
     searchEventWithDate,
+    sortAsc,
+    sortDesc,
 };
