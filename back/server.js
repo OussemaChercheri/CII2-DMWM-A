@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use('/author', authorApi);
+app.use('/api', authorApi);
 
 app.listen(port, (error) => {
     if (error) {
