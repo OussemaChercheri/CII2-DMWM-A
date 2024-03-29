@@ -25,13 +25,18 @@ const ServiceSchema = mongoose.Schema(
             type: String
         },
         category: {
-            type: String,
-            required: [true, "Please enter a service category"]
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Category',
+            required: true
         },
         location: {
             type: String,
             required: [true, "Please enter a service location"]
-        }
+        },
+        isApproved: {
+            type: Boolean,
+            default: false
+        },
     },
     {
         timestamps: true

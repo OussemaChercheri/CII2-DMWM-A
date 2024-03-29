@@ -1,4 +1,5 @@
 const Service = require('../modules/touristicServices.model');
+const Category = require('../modules/category.model');
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
@@ -18,7 +19,7 @@ const upload = multer({ storage: mystorage });
 
 const getServices = async (req, res) => {
     try {
-        const services = await Service.find();
+        const services = await Service.find().populate('category');
         res.status(200).json(services);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -27,7 +28,7 @@ const getServices = async (req, res) => {
 
 const getService = async (req, res) => {
     try {
-        const service = await Service.findById(req.params.id);
+        const service = await Service.findById(req.params.id).populate('category');
         res.status(200).json(service);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -43,13 +44,21 @@ const createService = async (req, res) => {
             const data = req.body;
             const service = new Service(data);
             
-            // Ensure that each file is properly checked before assignment
             if (req.files['image'] && req.files['image'][0]) {
                 service.image = req.files['image'][0].filename;
             }
 
             if (req.files['document'] && req.files['document'][0]) {
                 service.document = req.files['document'][0].filename;
+            }
+
+            // Add category ID to the service
+            if (data.category) {
+                const category = await Category.findById(data.category);
+                if (!category) {
+                    return res.status(404).json({ message: "Category not found" });
+                }
+                service.category = data.category;
             }
 
             try {
@@ -64,7 +73,6 @@ const createService = async (req, res) => {
     }
 };
 
-
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
@@ -74,7 +82,6 @@ const updateService = async (req, res) => {
             updatedData[key] = req.body[key];
         }
 
-        
         if (req.files && req.files['image'] && req.files['image'][0]) {
             const date = Date.now();
             const newFilename = date + '-' + req.files['image'][0].originalname;
@@ -89,10 +96,19 @@ const updateService = async (req, res) => {
             updatedData.image = newFilename;
         }
 
+        // Update category if provided in the request body
+        if (req.body.category) {
+            const category = await Category.findById(req.body.category);
+            if (!category) {
+                return res.status(404).json({ message: "Category not found" });
+            }
+            updatedData.category = req.body.category;
+        }
+
         const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
 
         if (!service) {
-        return res.status(404).json({ message: "Service not found" });
+            return res.status(404).json({ message: "Service not found" });
         }
         res.status(200).json(service);
     } catch (error) {
@@ -145,6 +161,47 @@ const getImage = async (req, res) => {
     }
 };
 
+const approveService = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const service = await Service.findById(id);
+        if(!service) {
+            return res.status(404).json({ message: "Service not found" });
+
+        }
+
+        service.isApproved = true; //Approve the service
+        await service.save();
+
+        res.status(200).json({ message: "Service approved" });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+const getApprovedServices = async (req, res) => {
+    try{
+        const service = await Service.find();
+        const {isApproved}=req.params;
+        const filtre=[];
+        let j=0;
+    for(let i in service){
+        if(service[i].isApproved){
+            filtre[j]=service[i];
+            j++;
+        }
+        
+    }
+    res.status(200).json(filtre);
+    
+    }
+    catch(error){
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    
+};
+}
 
 module.exports = {
     getServices,
@@ -153,5 +210,7 @@ module.exports = {
     updateService,
     deleteService,
     downloadDocument,
-    getImage
+    getImage,
+    approveService,
+    getApprovedServices
 };

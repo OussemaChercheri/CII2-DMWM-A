@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getServices, getService, createService, updateService, deleteService, downloadDocument, getImage} = require('../controllers/touristicServices.controller');
+const {getServices, getService, createService, updateService, deleteService, downloadDocument, getImage, approveService, getApprovedServices} = require('../controllers/touristicServices.controller');
 
 router.get('/', getServices);
 
@@ -14,6 +14,10 @@ router.delete("/:id", deleteService);
 
 router.get('/download/:id/document', downloadDocument);
 router.get('/getimage/:id', getImage);
+
+router.post('/:id/approve', approveService);
+
+router.get('/approved/:isApproved', getApprovedServices);
 
 
 
