@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { bootstrapApplication } from '@angular/platform-browser';
+=======
+>>>>>>> origin/doni
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -15,6 +18,7 @@ export class ServicebycategoryComponent implements OnInit {
     Highcharts.chart('service-container', {
       chart: {
         type: 'pie',
+<<<<<<< HEAD
         height: 325,
         style: {
           marginBottom: '-100px'
@@ -28,6 +32,12 @@ export class ServicebycategoryComponent implements OnInit {
           color: '#000000' 
           
         }
+=======
+        height: 325
+      },
+      title: {
+        text: 'Touristic Services by Category'
+>>>>>>> origin/doni
       },
       xAxis: {
         categories: ['Hotel', 'Coffee', 'Restaurant', 'Bar']

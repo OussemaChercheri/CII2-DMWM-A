@@ -14,10 +14,9 @@ export class EventbycategoryComponent implements OnInit {
     Highcharts.chart('event-container', {
       chart: {
         type: 'pie',
+
         height: 325,
-        style: {
-          marginBottom: '-100px'
-        }
+        
       },
       title: {
         text: 'Event by Category',
@@ -25,9 +24,9 @@ export class EventbycategoryComponent implements OnInit {
           fontSize: '15px',
           marginBottom: '-200%',
           color: '#000000' 
-          
-        }
+        },
       },
+
       xAxis: {
         categories: ['Sport', 'Concert', 'Wedding', 'Festival']
       },

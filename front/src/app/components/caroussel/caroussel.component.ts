@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import { Component , Input, OnInit } from '@angular/core';
 // Initialization for ES Users
-import {
-  Carousel,
-  initTWE,
-} from "tw-elements";
+interface carouselimages{
+     imagesrc: string;
+     imagealt: string;
+   }
 
-initTWE({ Carousel });
 
 @Component({
   selector: 'app-caroussel',
   templateUrl: './caroussel.component.html',
   styleUrl: './caroussel.component.css'
 })
-export class CarousselComponent {
+export class CarousselComponent implements OnInit{
+   @Input() image: carouselimages[]=[];
+   seletedindex=0;
+  
+    ngOnInit(): void {
+      throw new Error('Method not implemented.');
+    }
 
 }
+

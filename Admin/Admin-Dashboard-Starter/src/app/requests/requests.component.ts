@@ -10,6 +10,7 @@ import { TouristicServicesService } from '../services/touristicservices.service'
 })
 export class RequestsComponent implements OnInit {
 
+
   id: any;
   services: any[] = [];
   constructor(private http: HttpClient, private _serv: TouristicServicesService, private act: ActivatedRoute) { }
@@ -28,7 +29,6 @@ export class RequestsComponent implements OnInit {
       )
 
     });
-    
-  }
 
+}
 }

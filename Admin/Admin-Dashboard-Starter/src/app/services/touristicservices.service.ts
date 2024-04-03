@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 import { throwError } from 'rxjs';
@@ -6,6 +7,7 @@ import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TouristicServicesService {
 
   private apiUrl = 'http://localhost:3001/api/services';
@@ -27,4 +29,5 @@ export class TouristicServicesService {
   getImageById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/getimage/${id}`, { responseType: 'blob' });
   }
+
 }
