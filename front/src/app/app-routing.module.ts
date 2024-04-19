@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { OurteamComponent } from './components/ourteam/ourteam.component';
+import { CarouselComponent } from '@coreui/angular';
 
 const routes: Routes = [
   {path: '',redirectTo:'/login',pathMatch:'full'},
@@ -11,6 +12,8 @@ const routes: Routes = [
   {path:'register' , component:RegisterComponent},
   {path:'home' , component:HomeComponent},
   {path:'ourteam' , component:OurteamComponent},
+  
+
 
 
 
