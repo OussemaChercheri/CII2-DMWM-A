@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 //routes
 app.use("/api/events", eventRoute );
 app.use("/api/services", serviceRoute );
-app.use('/api', authorApi);
+app.use('/api/author', authorApi);
 app.use('/api/categories', categoryRoutes);
 
 app.get('/', (req, res) => {

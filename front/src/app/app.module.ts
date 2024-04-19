@@ -14,9 +14,14 @@ import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EventsComponent } from './components/events/events.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { MytunisiaComponent } from './components/mytunisia/mytunisia.component';
+import { OurteamComponent } from './components/ourteam/ourteam.component';
+import { TouristComponent } from './components/tourist/tourist.component';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
-  declarations: [
+  declarations:[
     AppComponent,
     LoginComponent,
     CarousselComponent,
@@ -26,13 +31,18 @@ import { EvaluationComponent } from './components/evaluation/evaluation.componen
     FooterComponent,
     EventsComponent,
     EvaluationComponent,
+    NavbarComponent,
+    MytunisiaComponent,
+    OurteamComponent,
+    TouristComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    GalleriaModule
 
   ],
   providers: [],

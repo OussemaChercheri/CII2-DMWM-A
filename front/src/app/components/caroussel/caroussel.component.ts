@@ -1,23 +1,45 @@
-import { Component , Input, OnInit } from '@angular/core';
-// Initialization for ES Users
-interface carouselimages{
-     imagesrc: string;
-     imagealt: string;
-   }
+import { Component } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+
+
 
 
 @Component({
   selector: 'app-caroussel',
   templateUrl: './caroussel.component.html',
-  styleUrl: './caroussel.component.css'
-})
-export class CarousselComponent implements OnInit{
-   @Input() image: carouselimages[]=[];
-   seletedindex=0;
+  styleUrl: './caroussel.component.css',
   
-    ngOnInit(): void {
-      throw new Error('Method not implemented.');
-    }
 
+})
+export class CarousselComponent {
+  
+  images: any[];
+  responsiveOptions: any;
+
+  constructor() {
+    this.images = [
+      { itemImageSrc: '../src/assets/images/car1.jpg' },
+      { itemImageSrc: 'path/to/your/image2.jpg' },
+      // Add more images as needed
+    ];
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
 }
 
