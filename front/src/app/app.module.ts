@@ -34,7 +34,8 @@ import { GalleriaModule } from 'primeng/galleria';
     NavbarComponent,
     MytunisiaComponent,
     OurteamComponent,
-    TouristComponent
+    TouristComponent,
+    
   ],
   imports: [
     BrowserModule,
