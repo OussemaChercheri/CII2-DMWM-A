@@ -1,0 +1,28 @@
+.container-fluid{
+  background-color: #e3f2fd;
+}
+a:hover {
+  color: #cb2828;
+}
+a,h4,p{
+  display: block;
+  color: #2855C3;
+  text-align:left;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+
+}
+.copyright, .copyright  a{
+
+  color: #000000;
+}
+
+.border-bottom{
+  display: inline-block;
+}
+
+.footer-menu{
+  display: inline-flex;
+}
