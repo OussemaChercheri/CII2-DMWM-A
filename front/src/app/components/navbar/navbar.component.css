@@ -11,7 +11,7 @@ li {
 
 li a {
     display: block;
-    color: #2855C3;
+    color: #ffffff;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -19,7 +19,7 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    color: #cb2828;
+    color: #607ee0;
 }
 .navbar-list {
     display: inline-block;

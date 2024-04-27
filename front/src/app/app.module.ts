@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { CarousselComponent } from './components/caroussel/caroussel.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +22,7 @@ import { GalleriaModule } from 'primeng/galleria';
   declarations:[
     AppComponent,
     LoginComponent,
-    CarousselComponent,
+
     RegisterComponent,
     HomeComponent,
     ContactComponent,
