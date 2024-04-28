@@ -2,6 +2,8 @@ const Service = require('../modules/touristicServices.model');
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
+const User = require("../modules/author");
+const asyncHandler = require("express-async-handler");
 
 let filename = '';
 
@@ -218,6 +220,94 @@ const getServicesByCategory = async (req, res) => {
     }
 };
 
+const addToWishlist = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { serviceId } = req.body;
+    try {
+        const user = await User.findById(_id);
+        const alreadyadded = user.wishlist.find((id) => id.toString() === serviceId);
+        if (alreadyadded) {
+            let user = await User.findByIdAndUpdate(
+                _id,
+                {
+                    $pull: { widhlist: serviceId},
+                },
+                { new: true }
+            );
+            res.json(user);
+        } else {
+            let user = await User.findByIdAndUpdate(
+                _id,
+                {
+                    $push: { wishlist: serviceId },
+                },
+                { new: true }
+            );
+            res.json(user);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+const rating = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { star, serviceId, comment} = req.body;
+    try {
+        const service = await Service.findById(serviceId);
+        let alreadyRated = service.rating.find(
+            (authorId) => authorId.postedby.toString() === _id.toString()
+        );
+        if (alreadyRated) {
+            const updateRating = await Service.updateOne(
+                {
+                    ratings: { $elemMatch: alreadyRated },
+                },
+                {
+                    $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+                },
+                {
+                    new: true,
+                }
+            );
+        } else {
+            const rateService = await Service.findByIdAndUpdate(
+                serviceId,
+                {
+                    $push: {
+                        ratings: {
+                            star: star,
+                            comment: comment,
+                            postedby: _id,
+                        },
+                    },
+                },
+                {
+                    new: true,
+                }
+            );
+        }
+        const getAllratings = await Service.findById(serviceId);
+        let totalRating = getAllratings.ratings.length;
+        let ratingsum = getAllratings.ratings
+            .map((item) => item.star)
+            .reduce((prev, curr) => prev + curr, 0);
+        let actualRating = Match.round(ratingsum / totalRating);
+        let finalService = await Service.findByIdAndUpdate(
+            serviceId,
+            {
+                totalrating: actualRating,
+            },
+            { new: true}
+        );
+        res.json(finalService);
+        } catch (err) {
+        console.log(err);
+        }
+    }
+);
+
+
 module.exports = {
     getServices,
     getService,
@@ -228,5 +318,7 @@ module.exports = {
     getImage,
     approveService,
     getApprovedServices,
-    getServicesByCategory
+    getServicesByCategory,
+    addToWishlist,
+    rating
 };

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ServiceSchema = mongoose.Schema(
     {
         name: {
@@ -34,6 +35,17 @@ const ServiceSchema = mongoose.Schema(
         isApproved: {
             type: Boolean,
             default: false
+        },
+        ratings: [
+            {
+                star: Number,
+                comment: String,
+                postedby: {type: mongoose.Schema.Types.ObjectId, ref: "Auth"},
+            },
+        ],
+        totalrating: {
+            type: String,
+            default: 0,
         },
     },
     {
