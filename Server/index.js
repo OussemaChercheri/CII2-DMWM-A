@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const serviceRoute = require('./routes/touristicServices.routes');
-const categoryRoutes = require('./routes/category.routes');
 const app = express();
 const cors = require('cors');
 
@@ -12,7 +11,6 @@ app.use(express.json());
 
 //routes
 app.use("/api/services", serviceRoute );
-app.use('/api/categories', categoryRoutes);
 
 
 app.get('/', (req, res) => {
