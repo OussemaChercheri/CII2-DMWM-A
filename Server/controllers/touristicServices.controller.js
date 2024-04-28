@@ -42,8 +42,6 @@ const createService = async (req, res) => {
                 return res.status(400).send(err);
             }
 
-            console.log(req.files); // Log the files object to inspect
-
             const data = req.body;
             const service = new Service(data);
 
@@ -71,43 +69,30 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        let updatedData = {};
+        let updatedData = req.body;
 
-        for (const key in req.body) {
-            updatedData[key] = req.body[key];
-        }
-
-        if (req.files && req.files['image'] && req.files['image'][0]) {
+        if (req.file) {
             const date = Date.now();
-            const newFilename = date + '-' + req.files['image'][0].originalname;
-
+            const newFilename = date + '-' + req.file.originalname;
             const oldService = await Service.findById(id);
+            
             if (!oldService) {
                 return res.status(404).json({ message: "Service not found" });
             }
 
-            const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
+            const filePath = './uploads' + oldService.image;
+            fs.unlinkSync(filePath);
 
             updatedData.image = newFilename;
         }
-
-        // Update category if provided in the request body
-        if (req.body.category) {
-            const category = await Category.findById(req.body.category);
-            if (!category) {
-                return res.status(404).json({ message: "Category not found" });
-            }
-            updatedData.category = req.body.category;
-        }
-
-        const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
-
+        const service = await Service.findByIdAndUpdate(id, updatedData, {
+            new: true,
+        });
         if (!service) {
             return res.status(404).json({ message: "Service not found" });
         }
-        res.status(200).json(service);
+        res.status(200).json({ message: "Service updated", service });
     } catch (error) {
-        console.error("Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
