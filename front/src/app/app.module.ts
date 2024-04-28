@@ -17,6 +17,7 @@ import { MytunisiaComponent } from './components/mytunisia/mytunisia.component';
 import { OurteamComponent } from './components/ourteam/ourteam.component';
 import { TouristComponent } from './components/tourist/tourist.component';
 import { GalleriaModule } from 'primeng/galleria';
+import { AddPostComponent } from './components/add-post/add-post.component';
 
 @NgModule({
   declarations:[
@@ -32,7 +33,8 @@ import { GalleriaModule } from 'primeng/galleria';
     NavbarComponent,
     MytunisiaComponent,
     OurteamComponent,
-    TouristComponent
+    TouristComponent,
+    AddPostComponent
     
   ],
   imports: [
