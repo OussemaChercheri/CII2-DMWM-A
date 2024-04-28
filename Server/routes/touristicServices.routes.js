@@ -20,7 +20,10 @@ router.get('/:id', getService);
 router.post('/', createService);
 router.patch('/:id', updateService);
 router.delete('/:id', deleteService);
+
+//route for downloading the document
 router.get('/download/:id/document', downloadDocument);
+
 router.get('/getimage/:id', getImage);
 
 //route for adding to wishlist by client

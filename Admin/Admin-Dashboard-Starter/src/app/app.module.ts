@@ -21,6 +21,10 @@ import { FormsModule } from '@angular/forms';
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ImgPipe } from './pipes/img.pipe';
+import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -39,7 +43,11 @@ import { ImgPipe } from './pipes/img.pipe';
     EventsComponent,
     EvaluationComponent,
     AboutusComponent,
-    ImgPipe
+    ImgPipe,
+    AuthComponent,
+    LoginComponent,
+    SignupComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
