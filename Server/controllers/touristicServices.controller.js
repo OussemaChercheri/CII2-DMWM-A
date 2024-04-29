@@ -2,7 +2,6 @@ const Service = require('../modules/touristicServices.model');
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
-const User = require("../modules/author");
 const asyncHandler = require("express-async-handler");
 
 let filename = '';
@@ -39,31 +38,32 @@ const createService = async (req, res) => {
     try {
         upload.fields([{ name: 'image', maxCount: 1 }, { name: 'document', maxCount: 1 }])(req, res, async function (err) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.message || 'File upload error');
             }
 
             const data = req.body;
             const service = new Service(data);
 
-            // Check if req.files['image'] exists and has the expected structure
-            if (req.files['image'] && req.files['image'][0] && req.files['image'][0].filename) {
-                service.image = req.files['image'][0].filename;
-            } else {
-                console.error('Image file not uploaded or invalid structure:', req.files['image']);
+            // Check if image file is uploaded
+            if (!req.files || !req.files['image'] || !req.files['image'][0] || !req.files['image'][0].filename) {
                 return res.status(400).json({ message: 'Image file not uploaded or invalid structure' });
             }
+            service.image = req.files['image'][0].filename;
 
-            // Other code for handling document upload, category, etc.
+            // Check if document file is uploaded
+            if (req.files['document'] && req.files['document'][0] && req.files['document'][0].filename) {
+                service.document = req.files['document'][0].filename;
+            }
 
             try {
                 const saved = await service.save();
                 res.status(200).send(saved);
             } catch (err) {
-                res.status(400).send(err);
+                res.status(400).send(err.message || 'Error saving service');
             }
         });
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err.message || 'Internal server error');
     }
 };
 const updateService = async (req, res) => {
@@ -96,8 +96,6 @@ const updateService = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
-
 
 
 const deleteService = async (req, res) => {
@@ -196,7 +194,6 @@ const getServicesByCategory = async (req, res) => {
                 }
             }
         ];
-
         const results = await Service.aggregate(pipeline);
         res.status(200).json(results);
     } catch (error) {

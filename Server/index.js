@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const serviceRoute = require('./routes/touristicServices.routes');
+const eventRoute = require('./routes/event.routes');
+const statisticRoute = require('./routes/statistic.routes');
 const app = express();
 const cors = require('cors');
 
@@ -11,6 +13,8 @@ app.use(express.json());
 
 //routes
 app.use("/api/services", serviceRoute );
+app.use("/api/events", eventRoute);
+app.use("/api/statistic", statisticRoute);
 
 
 app.get('/', (req, res) => {
