@@ -16,11 +16,11 @@ const ServiceSchema = mongoose.Schema(
             default: 0
         },
         image: {
-            type: String,
-            required: false
+            type: String
         },
         document: {
             type: String,
+            require: true
         },
         contactInfo: {
             type: String

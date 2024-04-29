@@ -35,41 +35,45 @@ const getService = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 const createService = async (req, res) => {
     try {
         upload.fields([{ name: 'image', maxCount: 1 }, { name: 'document', maxCount: 1 }])(req, res, async function (err) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.message || 'File upload error');
             }
 
             const data = req.body;
             const service = new Service(data);
 
-            // Check if req.files['image'] exists and has the expected structure
-            if (req.files['image'] && req.files['image'][0] && req.files['image'][0].filename) {
-                service.image = req.files['image'][0].filename;
-            } else {
-                console.error('Image file not uploaded or invalid structure:', req.files['image']);
+            // Check if image file is uploaded
+            if (!req.files || !req.files['image'] || !req.files['image'][0] || !req.files['image'][0].filename) {
                 return res.status(400).json({ message: 'Image file not uploaded or invalid structure' });
             }
+            service.image = req.files['image'][0].filename;
 
-            // Other code for handling document upload, category, etc.
+            // Check if document file is uploaded
+            if (req.files['document'] && req.files['document'][0] && req.files['document'][0].filename) {
+                service.document = req.files['document'][0].filename;
+            }
 
             try {
                 const saved = await service.save();
                 res.status(200).send(saved);
             } catch (err) {
-                res.status(400).send(err);
+                res.status(400).send(err.message || 'Error saving service');
             }
         });
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err.message || 'Internal server error');
     }
 };
+
+
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        let updatedData = req.body;
+        const updatedData = req.body;
 
         if (req.file) {
             const date = Date.now();
@@ -80,25 +84,23 @@ const updateService = async (req, res) => {
                 return res.status(404).json({ message: "Service not found" });
             }
 
-            const filePath = './uploads' + oldService.image;
-            fs.unlinkSync(filePath);
+            const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
+            await fs.unlink(filePath);
 
             updatedData.image = newFilename;
         }
-        const service = await Service.findByIdAndUpdate(id, updatedData, {
-            new: true,
-        });
+
+        const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
+
         if (!service) {
             return res.status(404).json({ message: "Service not found" });
         }
+
         res.status(200).json({ message: "Service updated", service });
     } catch (error) {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
-
-
 
 const deleteService = async (req, res) => {
     try {
