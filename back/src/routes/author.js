@@ -1,20 +1,25 @@
-const express = require('express');
-const router = express.Router();
-const AuthorController = require('../controller/authorController');
+const express= require('express');
+const authorController=require('../controller/authorController')
+const {signUpController,loginController, forgotPwd, resetPwd} = authorController
+//const {checkToken} = verifyToken
 
-// Register a new author
-router.post('/register', AuthorController.register);
 
-// Login route
-router.post('/login', AuthorController.login);
+const router = express.Router()
 
-// Get all authors
-router.get('/all', AuthorController.getAllAuthors);
 
-// Get author by ID
-router.get('/getById/:id', AuthorController.getAuthorById);
 
-// Delete author by ID
-router.delete('/delete/:id', AuthorController.deleteAuthorById);
 
-module.exports = router;
+
+//auth 
+
+router.post('/signup', signUpController )
+router.post('/login', loginController);
+router.post('/forgot', forgotPwd);
+router.put('/reset/:resetLink', resetPwd);
+
+
+
+
+
+
+module.exports = router
