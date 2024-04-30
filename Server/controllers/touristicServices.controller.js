@@ -34,6 +34,7 @@ const getService = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 const createService = async (req, res) => {
     try {
         upload.fields([{ name: 'image', maxCount: 1 }, { name: 'document', maxCount: 1 }])(req, res, async function (err) {
@@ -66,10 +67,12 @@ const createService = async (req, res) => {
         res.status(500).send(err.message || 'Internal server error');
     }
 };
+
+
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        let updatedData = req.body;
+        const updatedData = req.body;
 
         if (req.file) {
             const date = Date.now();
@@ -80,23 +83,23 @@ const updateService = async (req, res) => {
                 return res.status(404).json({ message: "Service not found" });
             }
 
-            const filePath = './uploads' + oldService.image;
-            fs.unlinkSync(filePath);
+            const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
+            await fs.unlink(filePath);
 
             updatedData.image = newFilename;
         }
-        const service = await Service.findByIdAndUpdate(id, updatedData, {
-            new: true,
-        });
+
+        const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
+
         if (!service) {
             return res.status(404).json({ message: "Service not found" });
         }
+
         res.status(200).json({ message: "Service updated", service });
     } catch (error) {
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
 
 const deleteService = async (req, res) => {
     try {
