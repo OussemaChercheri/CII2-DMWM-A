@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-    const {getEvents,getEvent,createEvent,updateEvent,deleteEvent,searchEventWithCategorie,searchEventWithTitle,searchEventWithDate,sortAsc,
+    const {getEvents,getEvent,createEvent,
+        updateEvent,deleteEvent,
+        searchEventWithCategorie,
+        searchEventWithTitle,
+        searchEventWithDate,sortAsc,
+        approveEvent,
+        getApprovedEvents,
         sortDesc,} = require('../controllers/event.Controller');
 
 
@@ -24,6 +30,9 @@ router.get("/sort/:price", sortAsc);
 
 router.get("/sortdesc/:price", sortDesc);
 
+//route to approve the service by admin
+router.post('/:id/approve', approveEvent);
+router.get('/approved/:isApproved', getApprovedEvents);
 
 
 

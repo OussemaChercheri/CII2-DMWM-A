@@ -66,13 +66,13 @@ const updateEvent = async (req, res) => {
         if (req.file) {
             const date = Date.now();
             const newFilename = date + '-' + req.file.originalname;
-            const oldService = await Event.findById(id);
+            const oldevent = await Event.findById(id);
 
-            if (!oldService) {
+            if (!oldevent) {
                 return res.status(404).json({ message: "Event not found" });
             }
 
-            const filePath = './uploads/' + oldService.image;
+            const filePath = './uploads/' + oldevent.image;
             fs.unlinkSync(filePath);
 
             updatedData.image = newFilename;
@@ -182,6 +182,49 @@ const searchEventWithDate = async (req, res) => {
     };
   
 
+
+const approveEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const event = await Event.findById(id);
+        if(!event) {
+            return res.status(404).json({ message: "event not found" });
+        }
+
+        event.isApproved = true; //Approve the event
+        await event.save();
+
+        res.status(200).json({ message: "event approved" });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+const getApprovedEvents = async (req, res) => {
+    try{
+        const event = await Event.find();
+        const {isApproved}=req.params;
+        const filtre=[];
+        let j=0;
+    for(let i in event){
+        if(event[i].isApproved){
+            filtre[j]=event[i];
+            j++;
+        }
+        
+    }
+    res.status(200).json(filtre);
+    
+    }
+    catch(error){
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    
+};
+}
+
+
 module.exports = {
     getEvents,
     getEvent,
@@ -193,4 +236,6 @@ module.exports = {
     searchEventWithDate,
     sortAsc,
     sortDesc,
+    approveEvent,
+    getApprovedEvents
 };

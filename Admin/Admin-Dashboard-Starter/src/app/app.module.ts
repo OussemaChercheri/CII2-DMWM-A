@@ -24,6 +24,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ImgPipe } from './pipes/img.pipe';
+import { TouristicservicesComponent } from './touristicservices/touristicservices.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ImgPipe } from './pipes/img.pipe';
     AuthComponent,
     LoginComponent,
     SignupComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TouristicservicesComponent
   ],
   imports: [
     BrowserModule,

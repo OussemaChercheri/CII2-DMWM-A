@@ -42,7 +42,22 @@ const eventSchema = mongoose.Schema({
         },
   image:{
     type: String,
-  }
+  },
+  isApproved: {
+    type: Boolean,
+    default: false
+  },
+  ratings: [
+    {
+        star: Number,
+        comment: String,
+        postedby: {type: mongoose.Schema.Types.ObjectId, ref: "Auth"},
+    },
+  ],
+  totalrating: {
+    type: String,
+    default: 0,
+  },
 }
 );
 

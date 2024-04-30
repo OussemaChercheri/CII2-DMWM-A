@@ -21,14 +21,23 @@ export class RequestsComponent implements OnInit {
 
   loadServices() {
     this._serv.getTouristicServices().subscribe(data => {
-      this.services = data;
+      this.services = data.filter(service => !service.isApproved); // Filter services where isApproved is false
     });
   }
 
   approve(serviceId: string) {
     this.http.post(`http://localhost:3001/api/services/${serviceId}/approve`, {}).subscribe(() => {
-      this.loadServices();
+      this.loadServices(); // Reload services after approval
     });
   }
 
+  deleteService(serviceId: string) {
+    this._serv.deleteService(serviceId).subscribe(() => {
+      // Remove the deleted service from the local services array
+      this.services = this.services.filter(service => service._id !== serviceId);
+    }, error => {
+      console.error('Error deleting service:', error);
+      // Handle error (e.g., display an error message)
+    });
+  }
 }
