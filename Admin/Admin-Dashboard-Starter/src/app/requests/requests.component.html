@@ -5,7 +5,7 @@
             
         </h2>
         <p class="text-gray-600">{{ service.description }}</p>
-        <p class="text-gray-800">Price: ${{ service.price }}</p>
+        <p class="text-gray-800">Price: {{ service.price }}$</p>
         <p class="text-gray-800">Category: {{ service.category }}</p>
         <p class="text-gray-800">Location: {{ service.location }}</p>
 
@@ -15,8 +15,8 @@
                 <a *ngIf="service.document" [href]="'http://localhost:3001/api/services/download/' + service._id + '/document'" target="_blank" class="text-blue-500">View Document</a>
             </div>
             <span>
-                <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-blue-500 rounded hover:bg-blue-600 mr-2">Accept</button>
-                <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-red-500 rounded hover:bg-red-600">Refuse</button>
+                <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-blue-500 rounded hover:bg-blue-600 mr-2" onclick="approve(service._id)">Accept</button>
+                <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-red-500 rounded hover:bg-red-600" onclick="deleteService(service)">Refuse</button>
             </span>
         </div>
     </div>

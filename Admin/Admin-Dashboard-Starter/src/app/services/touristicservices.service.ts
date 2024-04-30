@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
-import { throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +22,8 @@ export class TouristicServicesService {
     console.error('An error occurred:', error);
     return throwError(error);
   }
-
-  getImageById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getimage/${id}`, { responseType: 'blob' });
+  deleteService(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`)
   }
+  
 }
