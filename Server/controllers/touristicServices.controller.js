@@ -185,9 +185,11 @@ const getApprovedServices = async (req, res) => {
 
 const getServicesByCategory = async (req, res) => {
     try {
+        const { category } = req.params;
+
         const pipeline = [
             {
-                $match: { isApproved: true }
+                $match: { category, isApproved: true }
             },
             {
                 $group: {
@@ -197,13 +199,23 @@ const getServicesByCategory = async (req, res) => {
                 }
             }
         ];
+
         const results = await Service.aggregate(pipeline);
-        res.status(200).json(results);
+
+        // Extract necessary data for charting
+        const chartData = results.map(item => ({
+            category: item._id,
+            count: item.count,
+            totalSales: item.totalSales
+        }));
+
+        res.status(200).json({ chartData });
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 const addToWishlist = asyncHandler(async (req, res) => {
     const { _id } = req.user;
@@ -292,6 +304,18 @@ const rating = asyncHandler(async (req, res) => {
     }
 );
 
+const getTotalServicesCount = async (req, res) => {
+    try {
+        const totalServices = await Service.countDocuments();
+        res.status(200).json({ totalServices });
+    } catch (error) {
+        if (error.message && error.message.includes("Cast to ObjectId failed")) {
+            res.status(400).json({ message: "Invalid ObjectId format" });
+        } else {
+            res.status(500).json({ message: "Internal server error" });
+        }
+    }
+}
 
 module.exports = {
     getServices,
@@ -305,5 +329,6 @@ module.exports = {
     getApprovedServices,
     getServicesByCategory,
     addToWishlist,
-    rating
+    rating,
+    getTotalServicesCount
 };

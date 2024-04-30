@@ -12,7 +12,8 @@ const {
     getApprovedServices,
     getServicesByCategory,
     addToWishlist,
-    rating
+    rating,
+    getTotalServicesCount
 } = require('../controllers/touristicServices.controller');
 
 router.get('/', getServices);
@@ -34,9 +35,12 @@ router.post('/:id/approve', approveService);
 router.get('/approved/:isApproved', getApprovedServices);
 
 //route for calculating statistics by category
-router.get('/statistics/category', getServicesByCategory);
+router.get('/statistics/:category', getServicesByCategory);
 
 //route to rate the service by client
 router.put("/rating", rating);
+
+//get the total number of services
+router.get("/total", getTotalServicesCount);
 
 module.exports = router;
