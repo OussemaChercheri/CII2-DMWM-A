@@ -3,7 +3,7 @@ const userController = require('../controllers/user.controller');
 
 const express= require('express');
 
-const verifyToken = require('../_utils/verifyToken')
+const verifyToken = require('../utils/verifyToken')
 
 
 

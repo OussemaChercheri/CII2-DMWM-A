@@ -1,0 +1,15 @@
+img{
+    width: 320px;
+    height: 250px;
+}
+.row{
+    width: 100%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+h2,h3{
+    text-align: center;
+}
+h2{
+    color: #2855C3;
+}

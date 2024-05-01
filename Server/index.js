@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const serviceRoute = require('./routes/touristicServices.routes');
 const eventRoute = require('./routes/event.routes');
 const statisticRoute = require('./routes/statistic.routes');
+const authorRoute = require('./routes/author.routes');
+const userRoute = require('./routes/user.routes');
+
+
 const app = express();
 require('dotenv').config();
 const cors = require('cors');
@@ -21,6 +25,9 @@ app.use(express.json());
 app.use("/api/services", serviceRoute );
 app.use("/api/events", eventRoute);
 app.use("/api/statistic", statisticRoute);
+app.use("/api/author", authorRoute);
+app.use("/api/users", userRoute);
+
 
 
 app.get('/', (req, res) => {

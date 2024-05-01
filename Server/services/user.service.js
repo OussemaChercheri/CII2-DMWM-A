@@ -8,7 +8,7 @@ const getAllUsers = async() =>{
     });
     return users;
     }catch (error){
-       return error.message;
+        return error.message;
     }
 }
 
