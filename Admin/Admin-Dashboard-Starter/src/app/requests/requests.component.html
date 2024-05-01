@@ -1,45 +1,35 @@
-<div class="flex flex-wrap">
-    <div *ngFor="let service of services" class="flex-grow-0 flex-shrink-0 p-4 border rounded-lg shadow-md mb-4 mr-4" style="width: 300px;">
-        <h2 class="flex items-center justify-between">
-            <span class="text-xl font-bold">{{ service.name }}</span>
-        </h2>
-        <p class="text-gray-600">{{ service.description }}</p>
-        <p class="text-gray-800">Price: {{ service.price }}$</p>
-        <p class="text-gray-800">Category: {{ service.category }}</p>
-        <p class="text-gray-800">Location: {{ service.location }}</p>
-        <p class="text-gray-800">Description: {{ service.description }}</p>
-
-        <div class="flex items-center mt-4">
-            <img *ngIf="service.image" [src]="'http://localhost:3001/api/services/getimage/' + service._id" alt="Service Image" class="w-16 h-16 mr-10">
-            <div>
+<div class="section">
+    <h2 class="section-title">Touristic services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let service of services" class="bg-white rounded-lg shadow-md p-4">
+            <h2 class="text-xl font-bold mb-2">{{ service.name }}</h2>
+            <p class="text-gray-600 mb-2">{{ service.description }}</p>
+            <p class="text-gray-800 mb-2">Price: {{ service.price }}$</p>
+            <p class="text-gray-800 mb-2">Category: {{ service.category }}</p>
+            <p class="text-gray-800 mb-2">Location: {{ service.location }}</p>
+            <div class="flex items-center mt-2">
+                <img *ngIf="service.image" [src]="'http://localhost:3001/api/services/getimage/' + service._id" alt="Service Image" class="w-10 h-10 rounded-full mr-2">
                 <a *ngIf="service.document" [href]="'http://localhost:3001/api/services/download/' + service._id + '/document'" target="_blank" class="text-blue-500">View Document</a>
             </div>
-            <span>
+            <div class="mt-4">
                 <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-blue-500 rounded hover:bg-blue-600 mr-2" (click)="approveService(service._id)">Accept</button>
                 <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-red-500 rounded hover:bg-red-600" (click)="deleteService(service._id)">Refuse</button>
-            </span>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="flex flex-wrap">
-    <div *ngFor="let event of events" class="flex-grow-0 flex-shrink-0 p-4 border rounded-lg shadow-md mb-4 mr-4" style="width: 300px;">
-        <h2 class="flex items-center justify-between">
-            <span class="text-xl font-bold">{{ event.title }}</span>
-        </h2>
-        <p class="text-gray-600">{{ event.description }}</p>
-        <p class="text-gray-800">Price: {{ event.price }}$</p>
-        <p class="text-gray-800">Category: {{ event.categorie }}</p>
-        <p class="text-gray-800">Location: {{ event.location }}</p>
-        <p class="text-gray-800">Description: {{ event.description }}</p>
-
-        <div class="flex items-center mt-4">
-            <img *ngIf="event.image" [src]="'http://localhost:3001/api/events/getimage/' + event._id" alt="Event Image" class="w-16 h-16 mr-10">
-            <span>
+    <h2 class="section-title mt-6">Events</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let event of events" class="bg-white rounded-lg shadow-md p-4">
+            <h2 class="text-xl font-bold mb-2">{{ event.title }}</h2>
+            <p class="text-gray-600 mb-2">{{ event.description }}</p>
+            <p class="text-gray-800 mb-2">Price: {{ event.price }}$</p>
+            <p class="text-gray-800 mb-2">Category: {{ event.category }}</p>
+            <p class="text-gray-800 mb-2">Location: {{ event.location }}</p>
+            <div class="mt-4">
                 <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-blue-500 rounded hover:bg-blue-600 mr-2" (click)="approveEvent(event._id)">Accept</button>
                 <button class="px-2 py-1 text-xs font-semibold leading-none text-white bg-red-500 rounded hover:bg-red-600" (click)="deleteEvent(event._id)">Refuse</button>
-            </span>
+            </div>
         </div>
     </div>
 </div>
-
