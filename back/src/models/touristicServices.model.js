@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ServiceSchema = mongoose.Schema(
     {
         name: {
@@ -19,17 +20,15 @@ const ServiceSchema = mongoose.Schema(
         },
 
         image: {
-            type: String,
-            required: false
+            type: String
         },
         document: {
             type: String,
+            require: true
         },
         
         category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Category',
-            required: true
+            type: String
         },
         video: {
             type: String,
@@ -53,9 +52,26 @@ const ServiceSchema = mongoose.Schema(
             type: Boolean,
             default: false
         },
+<<<<<<< HEAD:back/src/models/touristicServices.model.js
 
         
             // timestamps: true
+=======
+        ratings: [
+            {
+                star: Number,
+                comment: String,
+                postedby: {type: mongoose.Schema.Types.ObjectId, ref: "Auth"},
+            },
+        ],
+        totalrating: {
+            type: String,
+            default: 0,
+        },
+    },
+    {
+        timestamps: true
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/modules/touristicServices.model.js
     }
 );
 

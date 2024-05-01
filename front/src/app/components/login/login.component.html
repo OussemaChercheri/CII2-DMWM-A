@@ -1,55 +1,37 @@
-<!-- component -->
 <div class="flex h-screen">
+  <div class="lg:flex items-center justify-center flex-1 bg-contain  bg-no-repeat" style="background-image: url('https://www.sarahdegheselle.com/wp-content/uploads/2022/12/Sarah-De-Gheselle-8085-681x1024.jpg');"></div>
 
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
     <div class="max-w-md w-full p-6">
       <h1 class="text-3xl font-semibold mb-6 text-blue-900 text-center">Login</h1>
-      <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">create your account in seconds</h1>
+      <h1 class="text-xs font-semibold mb-6 text-gray-500 text-center">create your account in seconds</h1>
 
       <form action="#" method="POST" class="space-y-4">
-
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 ">Email</label>
-          <input [(ngModel)]="author.email" type="email" id="email" name="email"
-            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-            required>
+          <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
+          <input [(ngModel)]="author.email" type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
         </div>
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <input [(ngModel)]="author.password" type="password" id="password" name="password"
-            class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-            required>
+          <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
+          <input [(ngModel)]="author.password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" required>
         </div>
         <div>
-          <button (click)="login()" type="submit"
-            class="w-full bg-blue-900 text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Login</button>
+          <button (click)="login()" type="submit" class="w-full bg-blue-900 text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Login</button>
         </div>
       </form>
-      <div class="mt-4 text-sm text-gray-600 text-center">
-        <p>Don't have an account ? <a routerLink="/register" class="text-blue-950 hover:underline">Sign In here</a>
-        </p>
+      <div class="mt-4 text-xs text-gray-600 text-center">
+        <p>Don't have an account? <a routerLink="/register" class="text-blue-950 hover:underline">Sign Up here</a></p>
       </div>
-      <div
-        class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300 dark:before:border-neutral-500 dark:after:border-neutral-500">
-        <p class="mx-4 mb-0 text-center font-semibold dark:text-blue-900">
-          Or
-        </p>
+      <div class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300 dark:before:border-neutral-500 dark:after:border-neutral-500">
+        <p class="mx-4 mb-0 text-center font-semibold dark:text-blue-900">Or</p>
       </div>
-      <div>
-        <div id="g_id_onload" data-client_id="39247780873-7j0scfbambovap716q7br5k2t7h755t6.apps.googleusercontent.com"
-          data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:3000/api/login"
-          data-itp_support="true">
+      <div class="text-center">
+        <div id="g_id_onload" data-client_id="39247780873-7j0scfbambovap716q7br5k2t7h755t6.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:3000/api/login" data-itp_support="true">
         </div>
-
-        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with"
-          data-size="large" data-logo_alignment="right">
+        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large" data-logo_alignment="right">
         </div>
       </div>
-
     </div>
-
-  </div>
-  <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
-    
   </div>
 </div>
+ 

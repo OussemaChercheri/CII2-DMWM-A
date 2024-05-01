@@ -1,9 +1,14 @@
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 const Service = require('../models/touristicServices.model');
 
 const Category = require('../models/category.model');
+=======
+const Service = require('../modules/touristicServices.model');
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
+const asyncHandler = require("express-async-handler");
 
 
 let filename = '';
@@ -23,9 +28,13 @@ const upload = multer({ storage: mystorage });
 
 const getServices = async (req, res) => {
     try {
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
         const services = await Service.find();
 
+=======
+        const services = await Service.find();
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
         res.status(200).json(services);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -34,10 +43,14 @@ const getServices = async (req, res) => {
 
 const getService = async (req, res) => {
     try {
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
 
         const service = await Service.findById(req.params.id);
 
+=======
+        const service = await Service.findById(req.params.id);
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
         res.status(200).json(service);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -54,27 +67,29 @@ const createService = async (req, res) => { // Move upload.single('image') to he
         upload.single('image')(req, res, async function (err) {
 
             if (err) {
-                return res.status(400).send(err);
+                return res.status(400).send(err.message || 'File upload error');
             }
+
             const data = req.body;
             const service = new Service(data);
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
             
             if (req.files['image'] && req.files['image'][0]) {
                 service.image = req.files['image'][0].filename;
             }
+=======
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
 
-            if (req.files['document'] && req.files['document'][0]) {
-                service.document = req.files['document'][0].filename;
+            // Check if image file is uploaded
+            if (!req.files || !req.files['image'] || !req.files['image'][0] || !req.files['image'][0].filename) {
+                return res.status(400).json({ message: 'Image file not uploaded or invalid structure' });
             }
+            service.image = req.files['image'][0].filename;
 
-            // Add category ID to the service
-            if (data.category) {
-                const category = await Category.findById(data.category);
-                if (!category) {
-                    return res.status(404).json({ message: "Category not found" });
-                }
-                service.category = data.category;
+            // Check if document file is uploaded
+            if (req.files['document'] && req.files['document'][0] && req.files['document'][0].filename) {
+                service.document = req.files['document'][0].filename;
             }
 
             try {
@@ -87,11 +102,11 @@ const createService = async (req, res) => { // Move upload.single('image') to he
 
                 res.status(200).send(saved);
             } catch (err) {
-                res.status(400).send(err);
+                res.status(400).send(err.message || 'Error saving service');
             }
         });
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err.message || 'Internal server error');
     }
 };
 
@@ -99,17 +114,13 @@ const createService = async (req, res) => { // Move upload.single('image') to he
 const updateService = async (req, res) => {
     try {
         const { id } = req.params;
-        let updatedData = {};
+        const updatedData = req.body;
 
-        for (const key in req.body) {
-            updatedData[key] = req.body[key];
-        }
-
-        if (req.files && req.files['image'] && req.files['image'][0]) {
+        if (req.file) {
             const date = Date.now();
-            const newFilename = date + '-' + req.files['image'][0].originalname;
-
+            const newFilename = date + '-' + req.file.originalname;
             const oldService = await Service.findById(id);
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
 // const updateService = async (req, res) => {
 //     try {
@@ -122,20 +133,29 @@ const updateService = async (req, res) => {
 //             const oldService = await Service.findById(id);
 
 
+=======
+            
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
             if (!oldService) {
                 return res.status(404).json({ message: "Service not found" });
             }
 
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
            // const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
 
             const filePath = './uploads/' + oldService.image;
             fs.unlinkSync(filePath);
 
+=======
+            const filePath = path.join(__dirname, '..', 'uploads', oldService.image);
+            await fs.unlink(filePath);
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
 
             updatedData.image = newFilename;
         }
 
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
         // Update category if provided in the request body
         if (req.body.category) {
@@ -147,22 +167,32 @@ const updateService = async (req, res) => {
         }
 
 
+=======
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
         const service = await Service.findByIdAndUpdate(id, updatedData, { new: true });
 
         if (!service) {
             return res.status(404).json({ message: "Service not found" });
         }
 
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
         res.status(200).json(service);
     } catch (error) {
 
         console.error("Error:", error);
+=======
+        res.status(200).json({ message: "Service updated", service });
+    } catch (error) {
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
         res.status(500).json({ message: "Internal server error" });
     }
 };
 
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
 
 
+=======
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
 const deleteService = async (req, res) => {
     try {
         const { id } = req.params;
@@ -211,7 +241,6 @@ const approveService = async (req, res) => {
         const service = await Service.findById(id);
         if(!service) {
             return res.status(404).json({ message: "Service not found" });
-
         }
 
         service.isApproved = true; //Approve the service
@@ -247,6 +276,140 @@ const getApprovedServices = async (req, res) => {
 };
 }
 
+const getServicesByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+
+        const pipeline = [
+            {
+                $match: { category, isApproved: true }
+            },
+            {
+                $group: {
+                    _id: '$category',
+                    count: { $sum: 1 },
+                    totalSales: { $sum: '$price' }
+                }
+            }
+        ];
+
+        const results = await Service.aggregate(pipeline);
+
+        // Extract necessary data for charting
+        const chartData = results.map(item => ({
+            category: item._id,
+            count: item.count,
+            totalSales: item.totalSales
+        }));
+
+        res.status(200).json({ chartData });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+const addToWishlist = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { serviceId } = req.body;
+    try {
+        const user = await User.findById(_id);
+        const alreadyadded = user.wishlist.find((id) => id.toString() === serviceId);
+        if (alreadyadded) {
+            let user = await User.findByIdAndUpdate(
+                _id,
+                {
+                    $pull: { widhlist: serviceId},
+                },
+                { new: true }
+            );
+            res.json(user);
+        } else {
+            let user = await User.findByIdAndUpdate(
+                _id,
+                {
+                    $push: { wishlist: serviceId },
+                },
+                { new: true }
+            );
+            res.json(user);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+const rating = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { star, serviceId, comment} = req.body;
+    try {
+        const service = await Service.findById(serviceId);
+        let alreadyRated = service.rating.find(
+            (authorId) => authorId.postedby.toString() === _id.toString()
+        );
+        if (alreadyRated) {
+            const updateRating = await Service.updateOne(
+                {
+                    ratings: { $elemMatch: alreadyRated },
+                },
+                {
+                    $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+                },
+                {
+                    new: true,
+                }
+            );
+        } else {
+            const rateService = await Service.findByIdAndUpdate(
+                serviceId,
+                {
+                    $push: {
+                        ratings: {
+                            star: star,
+                            comment: comment,
+                            postedby: _id,
+                        },
+                    },
+                },
+                {
+                    new: true,
+                }
+            );
+        }
+        const getAllratings = await Service.findById(serviceId);
+        let totalRating = getAllratings.ratings.length;
+        let ratingsum = getAllratings.ratings
+            .map((item) => item.star)
+            .reduce((prev, curr) => prev + curr, 0);
+        let actualRating = Match.round(ratingsum / totalRating);
+        let finalService = await Service.findByIdAndUpdate(
+            serviceId,
+            {
+                totalrating: actualRating,
+            },
+            { new: true}
+        );
+        res.json(finalService);
+        } catch (err) {
+        console.log(err);
+        }
+    }
+);
+
+const getTotalServicesCount = async (req, res) => {
+    try {
+        const totalServices = await Service.countDocuments();
+        res.status(200).json({ totalServices });
+    } catch (error) {
+        if (error.message && error.message.includes("Cast to ObjectId failed")) {
+            res.status(400).json({ message: "Invalid ObjectId format" });
+        } else {
+            res.status(500).json({ message: "Internal server error" });
+        }
+    }
+}
+
 module.exports = {
     getServices,
     getService,
@@ -257,6 +420,14 @@ module.exports = {
     downloadDocument,
     getImage,
     approveService,
+<<<<<<< HEAD:back/src/controller/touristicServices.controller.js
     getApprovedServices
 
+=======
+    getApprovedServices,
+    getServicesByCategory,
+    addToWishlist,
+    rating,
+    getTotalServicesCount
+>>>>>>> 8abc042b25d79bc46e35cbcefe1833c1611a4e83:Server/controllers/touristicServices.controller.js
 };

@@ -18,12 +18,13 @@ import { OurteamComponent } from './components/ourteam/ourteam.component';
 import { TouristComponent } from './components/tourist/tourist.component';
 import { GalleriaModule } from 'primeng/galleria';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations:[
     AppComponent,
     LoginComponent,
-
     RegisterComponent,
     HomeComponent,
     ContactComponent,
@@ -43,10 +44,12 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     FormsModule,
     HttpClientModule,
     RouterModule,
-    GalleriaModule
+    GalleriaModule,
+    MatDialogModule
 
   ],
   providers: [],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

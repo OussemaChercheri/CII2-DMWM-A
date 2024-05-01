@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {
   faDashboard,
-  faUser,
-  faPuzzlePiece
-
+  faPuzzlePiece,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -16,6 +15,11 @@ export class SideNavComponent implements OnInit {
   faDashboard = faDashboard;
   faUser = faUser;
   faPuzzlePiece = faPuzzlePiece;
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
   constructor() { }
 
   ngOnInit(): void {
