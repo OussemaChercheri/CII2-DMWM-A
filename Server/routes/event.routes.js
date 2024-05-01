@@ -7,7 +7,9 @@ const router = express.Router();
         searchEventWithDate,sortAsc,
         approveEvent,
         getApprovedEvents,
-        sortDesc,} = require('../controllers/event.Controller');
+        sortDesc,
+        getImage
+    } = require('../controllers/event.Controller');
 
 
 router.get('/', getEvents);
@@ -34,8 +36,9 @@ router.get("/sortdesc/:price", sortDesc);
 router.post('/:id/approve', approveEvent);
 router.get('/approved/:isApproved', getApprovedEvents);
 
+//route to get image
 
-
+router.get('/getimage/:id', getImage);
 
 
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EventsService } from '../services/events.service';
 import { TouristicServicesService } from '../services/touristicservices.service';
 
 @Component({
@@ -12,11 +13,13 @@ export class RequestsComponent implements OnInit {
 
   id: any;
   services: any[] = [];
-  constructor(private http: HttpClient, private _serv: TouristicServicesService, private act: ActivatedRoute) { }
+  events: any[] = [];
+  constructor(private http: HttpClient, private _serv: TouristicServicesService, private _ev: EventsService, private act: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.act.snapshot.paramMap.get('id');
     this.loadServices();
+    this.loadEvent();
   }
 
   loadServices() {
@@ -25,7 +28,7 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-  approve(serviceId: string) {
+  approveService(serviceId: string) {
     this.http.post(`http://localhost:3001/api/services/${serviceId}/approve`, {}).subscribe(() => {
       this.loadServices(); // Reload services after approval
     });
@@ -40,4 +43,28 @@ export class RequestsComponent implements OnInit {
       // Handle error (e.g., display an error message)
     });
   }
+  loadEvent() {
+    this._ev.getEvents().subscribe(data => {
+      this.events = data.filter(event => !event.isApproved);
+    });
+  }
+
+  approveEvent(eventId: string) {
+    this.http.post(`http://localhost:3001/api/events/${eventId}/approve`, {}).subscribe(() => {
+      this.loadEvent(); // Reload events after approval
+    }, error => {
+      console.error('Error approving event:', error);
+      // Handle error (e.g., display an error message)
+    });
+  }
+  
+
+  deleteEvent(eventId: string) {
+    this._ev.deleteEvent(eventId).subscribe(() => {
+      this.events = this.events.filter(event => event._id !== eventId);
+    }, error => {
+      console.error('Error deleting event:', error);
+    })
+  }
+
 }

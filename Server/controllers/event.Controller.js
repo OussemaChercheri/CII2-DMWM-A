@@ -1,5 +1,6 @@
 const Event = require('../modules/event.model');
 const multer = require('multer');
+const path = require('path');
 
 let filename = '';
 
@@ -14,7 +15,7 @@ const mystorage = multer.diskStorage({
 });
 const upload = multer({ storage: mystorage });
 
-//get all vents
+//get all events
 const getEvents = async (req, res) => {
     try {
         const evenements = await Event.find();
@@ -225,6 +226,20 @@ const getApprovedEvents = async (req, res) => {
 }
 
 
+const getImage = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event || !event.image) {
+            return res.status(404).json({ message: "Eevent or image not found" });
+        }
+        const imagePath = path.join(__dirname, '..', 'uploads', event.image);
+        res.sendFile(imagePath);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 module.exports = {
     getEvents,
     getEvent,
@@ -237,5 +252,6 @@ module.exports = {
     sortAsc,
     sortDesc,
     approveEvent,
-    getApprovedEvents
+    getApprovedEvents,
+    getImage
 };
