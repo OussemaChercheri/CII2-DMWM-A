@@ -17,7 +17,10 @@ export class CrudComponent implements OnInit{
   event:Events=new Events;
   formValue!:FormGroup;
   allEvents:any;
-
+  ch:any;
+  allEventsFiltre:Events[] |any;
+  allEvents2:Events[] |any;
+  
   constructor(private _ev:EnventserviceService , private formBuilder:FormBuilder ){
     this.formValue = new FormGroup({
       id: new FormControl('', Validators.required),
@@ -92,6 +95,8 @@ export class CrudComponent implements OnInit{
         console.log(err);
       }
     );
+  this.allEvents2=this.allEvents;
+
   }
 
   getallEvents(): number {
@@ -143,6 +148,26 @@ update() {
       }
     );
     
+}
+
+getdataFiltre(ch:any){
+  this._ev.searchsearchEventWithTitle(ch).subscribe(
+    (res) => {
+      this.allEvents= res;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+} 
+onSearch(searchTerm: string) {
+  if (searchTerm.trim() !== '') {
+    this.getdataFiltre(searchTerm);
+    this.allEvents=this.allEventsFiltre;
+  } else {
+    this.getdata();
+    this.allEvents=this.allEvents2;
+  }
 }
 }
 

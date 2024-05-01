@@ -1,4 +1,4 @@
-const Event = require('../model/event.js');
+const Event = require('../model/events.js');
 const multer = require('multer');
 const path=require('path');
 let filename = '';
@@ -154,22 +154,17 @@ const sortDesc = async (req, res) => {
 //search with title
 const searchEventWithTitle = async (req, res) => {
     try {
-        const evenements = await Event.find();
-        const {title}=req.params;
-        const filtre=[];
-        let j=0;
-        for(let i in evenements){
-            if(evenements[i].title==title){
-                filtre[j]=evenements[i];
-                j++;
-            }
-        }
+        const { title } = req.params;
+
+        // Use Mongoose's built-in filtering to find events with the specified title
+        const filtre = await Event.find({ title: { $regex: title, $options: 'i' } });
+        
         res.status(200).json(filtre);
     } catch (error) {
-      console.log(error);
-      res.status(500).send({ message: 'Error search events' });
+        console.error(error);
+        res.status(500).send({ message: 'Error searching events' });
     }
-  }
+};
  
   //search with categorie
   const searchEventWithCategorie = async (req, res) => {

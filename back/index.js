@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 const eventRoute = require('./router/eventRouter');
-const reservRouter=require('./router/reserveRouter');
+const reservRouter=require('./router/reservationRouter');
 const cors=require('cors');
 //to relate the front with the back(cors)
 app.use(cors());

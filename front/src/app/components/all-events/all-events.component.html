@@ -1,10 +1,23 @@
 <app-navbar-allpages></app-navbar-allpages>
-<app-tri></app-tri>
-<app-search></app-search>
 
+<!--search -->
+
+<div class="relative p-1 w-full sm:max-w-2xl sm:mx-auto top-20 mt-5 mb-3">
+    <div class="overflow-hidden z-0 rounded-full relative p-3">
+      <form role="form" class="relative flex z-50 bg-white rounded-full">
+        <input type="text" placeholder="enter your search here" #ch class="rounded-full flex-1 px-6 py-4 text-gray-700 focus:outline-none">
+        <button type="submit" (click)="onSearch(ch.value)" class="bg-indigo-500 text-white rounded-full font-semibold px-8 py-4 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">Search</button>
+      </form>
+      <div class="glow glow-1 z-10 bg-red-600 absolute"></div>
+      <div class="glow glow-2 z-20 bg-purple-400 absolute"></div>
+      <div class="glow glow-3 z-30 bg-yellow-400 absolute"></div>
+      <div class="glow glow-4 z-40 bg-blue-800 absolute"></div>
+    </div>      
+</div>
 <!--///////////////////////////////////////////-->
- <section class="h-screen w-screen bg-gradient-to-br from-pink-50 to-indigo-100 p-8">
-    <div class="grid justify-center sm:grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-7 my-10" >
+
+<section class="h-screen w-screen bg-gradient-to-br from-pink-50 to-indigo-100 p-8 mt-5">
+    <div class="grid justify-center sm:grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-7 my-10 " *ngIf="ch" >
         <!-- Card 1 -->
         <div class="bg-white rounded-lg border shadow-md max-w-xs md:max-w-none overflow-hidden" *ngFor="let data of allEvents">
             <img class="h-56 lg:h-60 w-full object-cover" [src]="'http://localhost:3000/api/events/getimage/'+ data._id" alt="" />
@@ -24,5 +37,3 @@
         </div>
     </div>
 </section>
-
-<app-footer></app-footer>

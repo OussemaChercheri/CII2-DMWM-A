@@ -1,5 +1,5 @@
 const Reservation = require('../model/reservation.js');
-const Event = require('../model/event.js');
+const Event = require('../model/events.js');
 
 //get all reservations
 const getAllReservations = async (req, res) => {

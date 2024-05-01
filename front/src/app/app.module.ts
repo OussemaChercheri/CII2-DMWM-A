@@ -23,7 +23,6 @@ import { CrudComponent } from './components/crud/crud.component';
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { NavbarAllpagesComponent } from './components/navbar-allpages/navbar-allpages.component';
 import { TriComponent } from './components/tri/tri.component';
-import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations:[
@@ -45,7 +44,6 @@ import { SearchComponent } from './components/search/search.component';
     AllEventsComponent,
     NavbarAllpagesComponent,
     TriComponent,
-    SearchComponent, 
   ],
   imports: [
     BrowserModule,

@@ -41,4 +41,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-homefront/.angular/cache/17.2.0
+front/.angular/cache/
+.node_module

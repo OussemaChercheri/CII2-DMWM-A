@@ -1,8 +1,11 @@
-<div class="col-12" >
+<app-navbar-allpages></app-navbar-allpages>
+<br><br><br><br><br><br>
+<div class="col-5 top-20 mt-5" >
 
     <div class="header row p-2 justify-between">
-      <input type="text" class="col-5 fa fa-search border border-primary" id="inputPassword2" placeholder="Filter" style="border-radius: 50px; width: 30%; margin-left: 30%;">
-      <button class="btn col-2" style="background-color: #2855C3; color: azure;" (click)="add()" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-plus"></i> Add Event</button>
+      <input type="text" class="col-5 fa fa-search border border-primary" #ch placeholder="Filter" style="border-radius: 50px; width: 30%; margin-left: 30%;">
+      <button class="btn col-3 rounded-full" style="background-color: #2855C3; color: azure;" (click)="add()" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-plus"></i> Add Event</button>
+      <button type="submit" (click)="onSearch(ch.value)" class="bg-indigo-500 text-white rounded-full font-semibold px-8 py-4 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">Search</button>
     </div>
   
   </div>
@@ -127,5 +130,12 @@
       </div>
     </div>
   </div>
+  <br><br>
+  <br><br>
+  <br><br>
+  <br><br>
+  <br><br>
+  <br><br>
+  <br><br>
   
   
