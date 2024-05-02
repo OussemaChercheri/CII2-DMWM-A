@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   JumpToSection(section:any =""){
     document.getElementById(section)!.scrollIntoView({behavior: 'smooth'});
 }
-  isSignInPopupVisible: boolean = false;
+  /*isSignInPopupVisible: boolean = false;
   showSignInPopup() {
     this.isSignInPopupVisible = true;
-  }
+  }*/
 
 }

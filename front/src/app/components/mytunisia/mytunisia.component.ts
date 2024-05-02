@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import AOS from "aos";
 
 @Component({
   selector: 'app-mytunisia',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './mytunisia.component.css'
 })
 export class MytunisiaComponent {
+  ngOnInit(){
+    AOS.init();
+  }
 
 }

@@ -1,0 +1,14 @@
+.title{
+    /* -webkit-text-stroke: 1px #fff; */
+    color: transparent;
+    background-image: linear-gradient(#fff ,#fff) ;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-position: -550px 0;
+    animation: backcolor 3s linear infinite alternate;
+  }
+  @keyframes backcolor {
+    100%{
+      background-position: 0 0;
+    }
+  }

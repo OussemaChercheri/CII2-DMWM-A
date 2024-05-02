@@ -19,6 +19,7 @@ import { TouristComponent } from './components/tourist/tourist.component';
 import { GalleriaModule } from 'primeng/galleria';
 import { AddPostComponent } from './components/add-post/add-post.component';
 
+
 @NgModule({
   declarations:[
     AppComponent,
@@ -35,6 +36,7 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     OurteamComponent,
     TouristComponent,
     AddPostComponent
+    
     
   ],
   imports: [

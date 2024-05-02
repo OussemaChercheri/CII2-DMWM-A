@@ -7,7 +7,7 @@ import {
   NgStyle,
   NgTemplateOutlet,
   isPlatformBrowser
-} from "./chunk-QNYN4OML.js";
+} from "./chunk-BO2IPY5X.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -35,7 +35,6 @@ import {
   TemplateRef,
   ViewChild,
   ViewEncapsulation$1,
-  __spreadValues,
   booleanAttribute,
   inject,
   numberAttribute,
@@ -83,7 +82,10 @@ import {
   ɵɵtemplate,
   ɵɵtemplateRefExtractor,
   ɵɵviewQuery
-} from "./chunk-N3XTPJSH.js";
+} from "./chunk-J3XSMWGI.js";
+import {
+  __spreadValues
+} from "./chunk-WKYGNSYM.js";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationMetadataType;

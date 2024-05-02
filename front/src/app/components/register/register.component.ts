@@ -9,23 +9,22 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
   author={
-    name:'',
+    username:'',
     email:'',
     password:''
   }
   constructor(private _auth:AuthService , private router:Router){}
 
   ngOnInit(): void {
-   
     
   }
 
   register() {
     let formData = new FormData();
-    formData.append('name', this.author.name);
+    formData.append('username', this.author.username);
     formData.append('email', this.author.email);
     formData.append('password', this.author.password);
-    
+    console.log(formData);
     this._auth.register(formData)
     .subscribe({
       next: res => {
