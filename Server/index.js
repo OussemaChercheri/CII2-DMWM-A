@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const serviceRoute = require('./routes/touristicServices.routes');
 const eventRoute = require('./routes/event.routes');
 const statisticRoute = require('./routes/statistic.routes');
-const authorRoute = require('./routes/author.routes');
 const userRoute = require('./routes/user.routes');
+const authRoute = require('./routes/auth.routes');
+
 
 
 const app = express();
@@ -25,8 +26,8 @@ app.use(express.json());
 app.use("/api/services", serviceRoute );
 app.use("/api/events", eventRoute);
 app.use("/api/statistic", statisticRoute);
-app.use("/api/author", authorRoute);
 app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
 
 
 

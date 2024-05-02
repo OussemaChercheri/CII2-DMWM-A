@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    userId: {
-        type: Number,
-        unique: true,
-        required: true
-    },
-    userName: {
+    username: {
         type: String
     },
     email: {
@@ -14,16 +9,18 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    pwd: {
+    profilePicture: {
+        type: String,
+        default:
+            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+    },
+    password: {
         type: String,
         required: true
     },
-    userType: {
-        type: String,
-        required: true
-    },
-    resetLink: {
-        type: String
+    isAdmin: {
+        type: Boolean,
+        default: false,
     }
 });
 
