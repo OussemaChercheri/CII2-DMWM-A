@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 import { TouristicservicesComponent } from './touristicservices/touristicservices.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent},
   { path: 'events', component: EventsComponent},
   { path: 'touristicservices', component: TouristicservicesComponent},
+  { path: 'users', component: UsersComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 
