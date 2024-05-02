@@ -7,13 +7,13 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor(private http:HttpClient) { }
-  private url = 'http://localhost:3000/author/';
+  private url = 'http://localhost:3001/api/auth/';
   register(author:any){
-    return this.http.post(this.url+'register',author);
+    return this.http.post(this.url+'signup',author);
     
   }
   login(author:any){
-    return this.http.post(this.url+'login',author);
+    return this.http.post(this.url+'signin',author);
     
   }
 }

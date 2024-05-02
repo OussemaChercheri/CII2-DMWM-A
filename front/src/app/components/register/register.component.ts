@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +36,7 @@ export class RegisterComponent {
         // Handle the error, if needed
       }
     });
-     
+
   }
   
 
