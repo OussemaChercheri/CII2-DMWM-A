@@ -1,5 +1,6 @@
 const bcryptjs = require('bcryptjs');
 const { errorHandler } = require('../modules/user.model');
+const User = require('../modules/user.model');
 
 const test = (req, res) => {
     res.json({ message: 'API is working!'});
@@ -115,17 +116,14 @@ const getUsers = async (req, res, next) => {
     }
 };
 
-const getUser = async (req, res, next) => {
-    try {
-        const user = await User.findById(req.params.userId);
-        if (!user) {
-        return next(errorHandler(404, 'User not found'));
-    }
-        const { password, ...rest } = user._doc;
-        res.status(200).json(rest);
-    } catch (error) {
-        next(error);
-    }
+const getUser = async (req, res) => {
+    User.find({})
+        .then(users => {
+            res.status(200).send(users);
+        })
+        .catch(err => {
+            res.status(400).send(err);
+        });
 };
 
 
