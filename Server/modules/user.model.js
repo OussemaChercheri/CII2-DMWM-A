@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,6 +33,19 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// JWT Access Token
+usersSchema.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES,
+  });
+};
+
+// JWT Refresh Token
+usersSchema.methods.getJWTRefreshToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_TOKEN_SECRET_KEY, {
+    expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES,
+  });
+};
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
