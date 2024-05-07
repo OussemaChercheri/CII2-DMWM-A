@@ -48,4 +48,18 @@ usersSchema.methods.getJWTRefreshToken = function () {
 };
 const User = mongoose.model("User", userSchema);
 
+// generating email verification token
+userSchema.methods.getEmailVerficationToken = function () {
+  const verificationToken = crypto.randomBytes(20).toString("hex");
+
+  //hashing and adding emailVerficationTokn to usersSchema
+  this.emailVerificationToken = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  this.emailVerificationExpire = Data.now() + 15 * 60 * 1000;
+  return verificationToken;
+};
+
 module.exports = User;
