@@ -7,7 +7,7 @@ const userRoute = require("./routes/user.routes");
 const authRoute = require("./routes/auth.routes");
 const reservRouter = require("./routes/reservation.routes");
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swaggerConfig");
+const swaggerSpec = require("./utils/swagger");
 
 const app = express();
 require("dotenv").config();

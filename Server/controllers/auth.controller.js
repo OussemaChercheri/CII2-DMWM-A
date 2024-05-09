@@ -156,7 +156,7 @@ const resetPassword = async (req, res) => {
 };
 
 // TODO: COntroller for user change password
-const changePassword = async (res, res) => {
+const changePassword = async (req, res) => {
   try {
     if (req.body.oldPassword && req.body.newPassword) {
       const { user } = req;
@@ -197,4 +197,10 @@ const changePassword = async (res, res) => {
   }
 };
 
-module.exports = { signin, signup, forgetPassword, resetPassword };
+module.exports = {
+  signin,
+  signup,
+  forgetPassword,
+  resetPassword,
+  changePassword,
+};
