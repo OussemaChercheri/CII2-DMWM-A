@@ -1,6 +1,6 @@
 const currentDateTime = require("../lib/current.date.time");
 
-exports.successResponse = (resultCode, title, message, data, maintenance) => ({
+const successResponse = (resultCode, title, message, data, maintenance) => ({
   result_code: resultCode,
   time: currentDateTime(),
   maintenance_info: maintenance || null,
@@ -11,7 +11,7 @@ exports.successResponse = (resultCode, title, message, data, maintenance) => ({
   },
 });
 
-exports.errorResponse = (resultCode, title, error, maintenance) => ({
+const errorResponse = (resultCode, title, error, maintenance) => ({
   result_code: resultCode,
   time: currentDateTime(),
   maintenance_info: maintenance || null,
@@ -20,3 +20,5 @@ exports.errorResponse = (resultCode, title, error, maintenance) => ({
     error,
   },
 });
+
+module.exports = { errorResponse, successResponse };

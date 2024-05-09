@@ -6,6 +6,8 @@ const statisticRoute = require("./routes/statistic.routes");
 const userRoute = require("./routes/user.routes");
 const authRoute = require("./routes/auth.routes");
 const reservRouter = require("./routes/reservation.routes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swaggerConfig");
 
 const app = express();
 require("dotenv").config();
@@ -16,6 +18,9 @@ const port = process.env.port || 3001;
 //middleware
 app.use(cors());
 app.use(express.json());
+
+// configure swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //routes
 app.use("/api/services", serviceRoute);
