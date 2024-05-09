@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
@@ -33,37 +31,40 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    emailVerificationToken: String, // Added field for email verification token
+    emailVerificationExpire: Date, // Added field for email verification token expiration
   },
   { timestamps: true }
 );
 
 // JWT Access Token
-usersSchema.methods.getJWTToken = function () {
+userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
     expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES,
   });
 };
 
 // JWT Refresh Token
-usersSchema.methods.getJWTRefreshToken = function () {
+userSchema.methods.getJWTRefreshToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_TOKEN_SECRET_KEY, {
     expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES,
   });
 };
-const User = mongoose.model("User", userSchema);
 
-// generating email verification token
-userSchema.methods.getEmailVerficationToken = function () {
+// Generating email verification token
+userSchema.methods.generateEmailVerificationToken = function () {
   const verificationToken = crypto.randomBytes(20).toString("hex");
 
-  //hashing and adding emailVerficationTokn to usersSchema
+  // Hashing and adding emailVerificationToken to userSchema
   this.emailVerificationToken = crypto
     .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
 
-  this.emailVerificationExpire = Data.now() + 15 * 60 * 1000;
+  this.emailVerificationExpire = Date.now() + 15 * 60 * 1000;
   return verificationToken;
 };
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

@@ -33,7 +33,7 @@ const getUser = async (req, res) => {
 
 // TODO: Controller for get user info using id by admin
 
-const getUserById = async (res, res) => {
+const getUserById = async (req, res) => {
   try {
     //chek if user exists
     const user = await User.findById(req.params.id);
