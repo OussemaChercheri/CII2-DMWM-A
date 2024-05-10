@@ -2,9 +2,14 @@ const mongoose = require("mongoose");
 const Event = require("./event.model");
 
 const ReservationSchema = new mongoose.Schema({
-  event: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Event",
+    ref: "Users",
+    required: true,
+  },
+  event_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Events",
     required: true,
   },
   dateRes: {
@@ -13,4 +18,4 @@ const ReservationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Reservation", ReservationSchema);
+module.exports = mongoose.model("Reservations", ReservationSchema);

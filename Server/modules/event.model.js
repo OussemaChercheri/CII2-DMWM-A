@@ -1,67 +1,59 @@
 //import mongose
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //define the schema for our event model
 const eventSchema = mongoose.Schema({
   title: {
     type: String,
-    },
-  description:{
+  },
+  description: {
     type: String,
-        },
+  },
   date: {
     type: Date,
-    
-        },
-  time:{
+  },
+  time: {
     type: Number,
-
-        },
+  },
   location: {
     type: String,
-    
-        },
-  categorie:{
+  },
+  categorie: {
     type: String,
-    
-        },
-  price:{
+  },
+  price: {
     type: Number,
-    
-        },
-  dateregistredeb:{
+  },
+  dateregistredeb: {
     type: Date,
-    
-        },
-  dateregistrefin:{
+  },
+  dateregistrefin: {
     type: Date,
-    
-        },
-        nbrtickets:{
-          type:Number,
-        },
-  image:{
+  },
+  nbrtickets: {
+    type: Number,
+  },
+  image: {
     type: String,
   },
   isApproved: {
     type: Boolean,
-    default: false
+    default: false,
   },
   ratings: [
     {
-        star: Number,
-        comment: String,
-        postedby: {type: mongoose.Schema.Types.ObjectId, ref: "Auth"},
+      star: Number,
+      comment: String,
+      postedby: { type: mongoose.Schema.Types.ObjectId, ref: "Auth" },
     },
   ],
   totalrating: {
     type: String,
     default: 0,
   },
-}
-);
+});
 
 //create n event model
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model("Events", eventSchema);
 //export the event model
 module.exports = Event;
