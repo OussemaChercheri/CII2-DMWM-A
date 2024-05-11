@@ -20,7 +20,7 @@ const {
   isAdmin,
 } = require("../middlewares/app.authentification");
 
-router.get("/", getServices);
+router.get("/", isAuthenticatedUser, getServices);
 router.get("/:id", getService);
 router.post("/", isAuthenticatedUser, createService);
 router.patch("/:id", isAuthenticatedUser, updateService);

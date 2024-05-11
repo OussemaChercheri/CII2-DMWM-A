@@ -3,75 +3,64 @@ const { errorResponse } = require("../configs/app.respond");
 const User = require("../modules/user.model");
 
 // TODO: Middleware for detect authenticated logger user
+
 const isAuthenticatedUser = async (req, res, next) => {
   try {
-    //get access token from authorization headers
+    // Get access token from authorization headers
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return res
-        .status(403)
-        .json(
-          errorResponse(
-            3,
-            "ACCESS FORBIDDEN",
-            "Authoeization headers is required"
-          )
-        );
+      return res.status(403).json({
+        errorCode: 3,
+        message: "ACCESS FORBIDDEN",
+        description: "Authorization header is required",
+      });
     }
 
-    //split token from authorization header
+    // Split token from authorization header
     const token = authorization.split(" ")[1];
 
-    //verify token
-    jwt.verify(token, process.env.JWT_SECRET, async (err, dec) => {
-      if (err) {
-        return res
-          .status(404)
-          .json(
-            errorResponse(
-              11,
-              "JWT TOKEN INVALID",
-              "JWT toen is expired/invalid. Please logout and login again"
-            )
-          );
-      }
-
-      //check if user exists
-      const user = await User.findById(dec.id);
-
+    // Verify token
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // Check if user exists
+      const user = await User.findById(decoded.id);
       if (!user) {
-        return res
-          .status(404)
-          .json(
-            errorResponse(
-              4,
-              "UNKNOWN ACCESS",
-              "Authorization headers is missing/invalid"
-            )
-          );
+        return res.status(404).json({
+          errorCode: 4,
+          message: "UNKNOWN ACCESS",
+          description: "User not found",
+        });
       }
-
-      // check if user is logged in
+      // Check if user is logged in
       if (user.status === "login") {
         req.user = user;
         next();
       } else {
-        return res
-          .status(401)
-          .json(
-            errorResponse(
-              1,
-              "FAILED",
-              "Unauthorized access. PLease login to continue"
-            )
-          );
+        return res.status(401).json({
+          errorCode: 1,
+          message: "FAILED",
+          description: "Unauthorized access. Please login to continue",
+        });
       }
-    });
+    } catch (error) {
+      return res.status(401).json({
+        errorCode: 11,
+        message: "JWT TOKEN INVALID",
+        description:
+          "JWT token is expired/invalid. Please logout and login again",
+      });
+    }
   } catch (error) {
-    res.status(500).json(errorResponse(2, "SERVER SIDE ERROR", error));
+    // Catching synchronous errors
+    return res.status(500).json({
+      errorCode: 2,
+      message: "SERVER SIDE ERROR",
+      description: error.message,
+    });
   }
 };
+
 // TODO: Middleware for login user JWT refresh-token validate
 const isRefreshTokenValid = async (req, res, next) => {
   try {

@@ -23,10 +23,10 @@ router.post("/reset-password/:token", resetPassword);
 
 // routes for user email verification
 router
-  .route("/auth/send-email-verification-link")
+  .route("/send-email-verification-link")
   .post(isAuthenticatedUser, sendEmailVerificationLink);
 router
-  .route("/auth/verify-email/:token")
+  .route("/verify-email/:token")
   .post(isAuthenticatedUser, emailVerification);
 
 // route for get user refresh JWT Token
