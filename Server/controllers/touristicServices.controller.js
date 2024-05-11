@@ -259,6 +259,62 @@ const addToWishlist = asyncHandler(async (req, res) => {
   }
 });
 
+const rating = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  const { star, serviceId, comment } = req.body;
+  try {
+    const service = await Service.findById(serviceId);
+    let alreadyRated = service.rating.find(
+      (authorId) => authorId.postedby.toString() === _id.toString()
+    );
+    if (alreadyRated) {
+      const updateRating = await Service.updateOne(
+        {
+          ratings: { $elemMatch: alreadyRated },
+        },
+        {
+          $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+        },
+        {
+          new: true,
+        }
+      );
+    } else {
+      const rateService = await Service.findByIdAndUpdate(
+        serviceId,
+        {
+          $push: {
+            ratings: {
+              star: star,
+              comment: comment,
+              postedby: _id,
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+    const getAllratings = await Service.findById(serviceId);
+    let totalRating = getAllratings.ratings.length;
+    let ratingsum = getAllratings.ratings
+      .map((item) => item.star)
+      .reduce((prev, curr) => prev + curr, 0);
+    let actualRating = Match.round(ratingsum / totalRating);
+    let finalService = await Service.findByIdAndUpdate(
+      serviceId,
+      {
+        totalrating: actualRating,
+      },
+      { new: true }
+    );
+    res.json(finalService);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 const getTotalServicesCount = async (req, res) => {
   try {
     const totalServices = await Service.countDocuments();
@@ -284,5 +340,6 @@ module.exports = {
   getApprovedServices,
   getServicesByCategory,
   addToWishlist,
+  rating,
   getTotalServicesCount,
 };

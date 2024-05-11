@@ -10,20 +10,24 @@ const {
   searchEventWithDate,
   sortDate,
 } = require("../controllers/reservation.controller");
+const {
+  isAuthenticatedUser,
+  isAdmin,
+} = require("../middlewares/app.authentification");
 
-router.get("/", getAllReservations);
+router.get("/", isAuthenticatedUser, getAllReservations);
 
-router.get("/:id", getReservation);
+router.get("/:id", isAuthenticatedUser, getReservation);
 
-router.get("/event/:id", getReservationsByEvent);
+router.get("/event/:id", isAuthenticatedUser, getReservationsByEvent);
 
-router.post("/", createReservation);
+router.post("/", isAuthenticatedUser, createReservation);
 
-router.delete("/:id", deleteReservation);
-+router.get("/search/:title", searchEventWithEvent);
+router.delete("/:id", isAuthenticatedUser, deleteReservation);
++router.get("/search/:title", isAuthenticatedUser, searchEventWithEvent);
 
-router.get("/categorie/:categorie", sortDate);
+router.get("/categorie/:categorie", isAuthenticatedUser, sortDate);
 
-router.get("/date/:date", searchEventWithDate);
+router.get("/date/:date", isAuthenticatedUser, searchEventWithDate);
 
 module.exports = router;

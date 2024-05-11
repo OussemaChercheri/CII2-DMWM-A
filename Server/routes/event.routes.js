@@ -1,45 +1,55 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-    const {getEvents,getEvent,createEvent,
-        updateEvent,deleteEvent,
-        searchEventWithCategorie,
-        searchEventWithTitle,
-        searchEventWithDate,sortAsc,
-        approveEvent,
-        getApprovedEvents,
-        sortDesc,
-        getImage
-    } = require('../controllers/event.Controller');
+const {
+  getEvents,
+  getEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  searchEventWithCategorie,
+  searchEventWithTitle,
+  searchEventWithDate,
+  sortAsc,
+  approveEvent,
+  getApprovedEvents,
+  sortDesc,
+  getImage,
+} = require("../controllers/event.Controller");
+const {
+  isAuthenticatedUser,
+  isAdmin,
+} = require("../middlewares/app.authentification");
 
+router.get("/", getEvents);
 
-router.get('/', getEvents);
+router.get("/:id", isAuthenticatedUser, getEvent);
 
-router.get("/:id", getEvent);
+router.post("/", isAuthenticatedUser, createEvent);
 
-router.post("/", createEvent);
+router.patch("/:id", isAuthenticatedUser, updateEvent);
 
-router.patch("/:id", updateEvent);
+router.delete("/:id", isAuthenticatedUser, deleteEvent);
 
-router.delete("/:id", deleteEvent);
+router.get("/search/:title", isAuthenticatedUser, searchEventWithTitle);
 
-router.get("/search/:title", searchEventWithTitle);
+router.get(
+  "/categorie/:categorie",
+  isAuthenticatedUser,
+  searchEventWithCategorie
+);
 
-router.get("/categorie/:categorie", searchEventWithCategorie);
+router.get("/date/:date", isAuthenticatedUser, searchEventWithDate);
 
-router.get("/date/:date", searchEventWithDate);
+router.get("/sort/:price", isAuthenticatedUser, sortAsc);
 
-router.get("/sort/:price", sortAsc);
-
-router.get("/sortdesc/:price", sortDesc);
+router.get("/sortdesc/:price", isAuthenticatedUser, sortDesc);
 
 //route to approve the service by admin
-router.post('/:id/approve', approveEvent);
-router.get('/approved/:isApproved', getApprovedEvents);
+router.post("/:id/approve", isAdmin, approveEvent);
+router.get("/approved/:isApproved", isAuthenticatedUser, getApprovedEvents);
 
 //route to get image
 
-router.get('/getimage/:id', getImage);
-
-
+router.get("/getimage/:id", getImage);
 
 module.exports = router;

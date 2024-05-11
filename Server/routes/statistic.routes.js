@@ -1,6 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getStatistics } = require('../controllers/statistic.controller');
+const {
+  getSericeStatistics,
+  getEventStatistics,
+} = require("../controllers/statistic.controller");
 
 /*get statistiques:
     1.Total Services Count: Retrieves the total number of services in the database.
@@ -8,6 +11,7 @@ const { getStatistics } = require('../controllers/statistic.controller');
     3.Total Sales: Calculates the sum of prices from all services.
     4.Highest Rated Service: Finds the service with the highest rating (totalrating) and includes information about the user who posted the rating.
 */
-router.get('/',getStatistics);
+router.get("/service", getSericeStatistics);
+router.get("/event", getEventStatistics);
 
 module.exports = router;
