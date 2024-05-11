@@ -197,10 +197,128 @@ const changePassword = async (req, res) => {
   }
 };
 
+const sendEmailVerificationLink = async (req, res) => {
+  try {
+    const { user } = req;
+
+    if (!user) {
+      return res
+        .status(404)
+        .json(errorResponse(4, "UNKNOWN ACCESS", "User does not exist"));
+    }
+
+    // check user already verified
+    if (user.verified) {
+      return res
+        .status(400)
+        .json(errorResponse(1, "FAILED", "Ops! Your mail already verified"));
+    }
+
+    // email verification token
+    const verificationToken = user.getEmailVerificationToken();
+
+    // save updated user
+    await user.save({ validateBeforeSave: false });
+
+    // mailing data
+    const url = `${process.env.APP_SERVICE_URL}/auth/verify-email/${verificationToken}`;
+    const subjects = "User Email Verification";
+    const message =
+      "Click below link to verify your email. If you have not requested this email simply ignore this email.";
+    const title = "Verify Your Email";
+
+    // sending mail
+    sendEmail(res, user, url, subjects, message, title);
+  } catch (error) {
+    res.status(500).json(errorResponse(2, "SERVER SIDE ERROR", error));
+  }
+};
+
+const emailVerification = async (req, res) => {
+  try {
+    if (req.params.token) {
+      // creating token crypto hash
+      const emailVerificationToken = crypto
+        .createHash("sha256")
+        .update(req.params.token)
+        .digest("hex");
+
+      const user = await User.findOne({
+        emailVerificationToken,
+        emailVerificationExpire: { $gt: Date.now() },
+      });
+
+      if (!user) {
+        return res
+          .status(404)
+          .json(
+            errorResponse(
+              4,
+              "UNKNOWN ACCESS",
+              "Email verification token is invalid or has been expired"
+            )
+          );
+      }
+
+      // reset user password in database
+      user.emailVerificationToken = undefined;
+      user.emailVerificationExpire = undefined;
+      user.verified = true;
+      await user.save();
+
+      res
+        .status(200)
+        .json(
+          successResponse(0, "SUCCESS", "User email verification successful")
+        );
+    } else {
+      return res
+        .status(400)
+        .json(errorResponse(1, "FAILED", "Please enter all required fields"));
+    }
+  } catch (error) {
+    res.status(500).json(errorResponse(2, "SERVER SIDE ERROR", error));
+  }
+};
+const refreshToken = async (req, res) => {
+  try {
+    const { user } = req;
+
+    if (!user) {
+      return res
+        .status(404)
+        .json(errorResponse(4, "UNKNOWN ACCESS", "User does not exist"));
+    }
+
+    const accessToken = user.getJWTToken();
+    const refreshToken = user.getJWTRefreshToken();
+
+    // options for cookie
+    const options = {
+      expires: new Date(
+        Date.now() + process.env.JWT_TOKEN_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    };
+
+    res.status(200).cookie("AccessToken", accessToken, options).json(
+      successResponse(0, "SUCCESS", "JWT refreshToken generate successful", {
+        accessToken,
+        refreshToken,
+      })
+    );
+  } catch (error) {
+    res.status(500).json(errorResponse(2, "SERVER SIDE ERROR", error));
+  }
+};
+
 module.exports = {
   signin,
   signup,
   forgetPassword,
   resetPassword,
   changePassword,
+  sendEmailVerificationLink,
+  emailVerification,
+  refreshToken,
 };

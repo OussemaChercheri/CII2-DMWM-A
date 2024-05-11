@@ -24,7 +24,7 @@ router.get("/event/:id", isAuthenticatedUser, getReservationsByEvent);
 router.post("/", isAuthenticatedUser, createReservation);
 
 router.delete("/:id", isAuthenticatedUser, deleteReservation);
-+router.get("/search/:title", isAuthenticatedUser, searchEventWithEvent);
+router.get("/search/:title", isAuthenticatedUser, searchEventWithEvent);
 
 router.get("/categorie/:categorie", isAuthenticatedUser, sortDate);
 
