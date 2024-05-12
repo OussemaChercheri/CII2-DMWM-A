@@ -5,10 +5,7 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/user.controller");
-const {
-  isAuthenticatedUser,
-  isAdmin,
-} = require("../middlewares/app.authentification");
+const isAuth = require("../middlewares/isAuth");
 
 const router = express.Router();
 
@@ -35,7 +32,7 @@ const router = express.Router();
  *       401:
  *         description: Unauthorized
  */
-router.route("/get-user").get(isAuthenticatedUser, getUser);
+router.route("/get-user").get(isAuth, getUser);
 
 // Get user by ID route
 /**
@@ -64,7 +61,7 @@ router.route("/get-user").get(isAuthenticatedUser, getUser);
  *       404:
  *         description: User not found
  */
-router.route("/get-user/:id").get(isAuthenticatedUser, isAdmin, getUserById);
+router.route("/get-user/:id").get(isAuth, getUserById);
 
 // Update user info route
 /**
@@ -82,7 +79,7 @@ router.route("/get-user/:id").get(isAuthenticatedUser, isAdmin, getUserById);
  *       401:
  *         description: Unauthorized
  */
-router.route("/update-user").put(isAuthenticatedUser, updateUser);
+router.route("/update-user").put(isAuth, updateUser);
 
 // Delete user route
 /**
@@ -100,6 +97,6 @@ router.route("/update-user").put(isAuthenticatedUser, updateUser);
  *       401:
  *         description: Unauthorized
  */
-router.route("/delete-user").delete(isAuthenticatedUser, deleteUser);
+router.route("/delete-user").delete(isAuth, deleteUser);
 
 module.exports = router;

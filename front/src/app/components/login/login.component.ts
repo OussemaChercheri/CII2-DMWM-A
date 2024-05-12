@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 //declare var google:any;
 @Component({
   selector: 'app-login',
@@ -33,7 +33,7 @@ login() {
       console.log(err);
     }
   )
- 
+
 }
 
   author={

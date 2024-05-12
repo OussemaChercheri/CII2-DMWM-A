@@ -15,36 +15,33 @@ const {
   rating,
   getTotalServicesCount,
 } = require("../controllers/touristicServices.controller");
-const {
-  isAuthenticatedUser,
-  isAdmin,
-} = require("../middlewares/app.authentification");
+const  isAuth  = require("../middlewares/isAuth");
 
-router.get("/", isAuthenticatedUser, getServices);
+router.get("/", getServices);
 router.get("/:id", getService);
-router.post("/", isAuthenticatedUser, createService);
-router.patch("/:id", isAuthenticatedUser, updateService);
-router.delete("/:id", isAuthenticatedUser, deleteService);
+router.post("/", isAuth, createService);
+router.patch("/:id", isAuth, updateService);
+router.delete("/:id", isAuth, deleteService);
 
 //route for downloading the document
-router.get("/download/:id/document", isAdmin, downloadDocument);
+router.get("/download/:id/document", downloadDocument);
 
 router.get("/getimage/:id", getImage);
 
 //route for adding to wishlist by client
-router.post("/:id/wishlist", isAuthenticatedUser, addToWishlist);
+router.post("/:id/wishlist", isAuth, addToWishlist);
 
 //route to approve the service by admin
-router.post("/:id/approve", isAdmin, approveService);
-router.get("/approved/:isApproved", isAuthenticatedUser, getApprovedServices);
+router.post("/:id/approve", approveService);
+router.get("/approved/:isApproved", isAuth, getApprovedServices);
 
 //route for calculating statistics by category
-router.get("/statistics/:category", isAdmin, getServicesByCategory);
+router.get("/statistics/:category", getServicesByCategory);
 
 //route to rate the service by client
-router.put("/rating", isAuthenticatedUser, rating);
+router.put("/rating", isAuth, rating);
 
 //get the total number of services
-router.get("/total", isAdmin, getTotalServicesCount);
+router.get("/total", getTotalServicesCount);
 
 module.exports = router;

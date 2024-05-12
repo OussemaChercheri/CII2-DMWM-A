@@ -51,7 +51,7 @@ const signin = async (req, res, next) => {
       return next(errorHandler(400, "Invalid password"));
     }
     const token = jwt.sign(
-      { id: validUser._id, isAdmin: validUser.isAdmin },
+      { id: validUser._id, validUser, isAdmin },
       process.env.JWT_SECRET
     );
 
@@ -70,22 +70,30 @@ const signin = async (req, res, next) => {
 
 const forgetPassword = async (req, res) => {
   try {
-    const user = await User.findOneAndReplace({ email: req.body.email });
+    const user = await User.findOneAndUpdate(
+      { email: req.body.email },
+      {
+        $set: {
+          resetPasswordToken: someToken,
+          resetPasswordExpires: someExpiration,
+        },
+      }
+    );
 
     if (!user) {
       return res
         .status(404)
-        .json(errorResponse(4, "UNKOWN ERROR", "User does not exist"));
+        .json(errorResponse(4, "UNKNOWN ERROR", "User does not exist"));
     }
     // reset password token
     const resetToken = user.getResetPasswordToken();
 
-    // save updatr user
-    await user.save({ validateBeforeSave: false });
+    // save updated user
+    await user.save();
 
     //mailing data
-    const url = `${process.env.APP_SERVICE_URL}/auth/forget-password/${resertToken}`;
-    const subjects = "Pzssword Recovery Email";
+    const url = `${process.env.APP_SERVICE_URL}/auth/forget-password/${resetToken}`;
+    const subjects = "Password Recovery Email";
     const message =
       "click below to reset your password, If you have not requested this email simply ignore this email.";
     const title = "Recovery Your Password";
@@ -322,3 +330,67 @@ module.exports = {
   emailVerification,
   refreshToken,
 };
+
+// exports.register = (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   bcrypt
+//     .hash(password, 12)
+//     .then((hashedPwd) => {
+//       const user = new User({
+//         email: email,
+//         password: hashedPwd,
+//       });
+//       return user.save();
+//     })
+//     .then((result) => {
+//       res.status(201).json({
+//         message: "User successfully created",
+//         userId: result["_id"],
+//         user: result,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+// exports.login = (req, res, next) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   User.findOne({ email: email })
+//     .then((u) => {
+//       if (!u) {
+//         const error = new Error("A user with this mail could not be found");
+//         error.statusCode = 401;
+//         throw error;
+//       }
+//       loadedUser = u;
+//       return bcrypt.compare(password, loadedUser.password);
+//     })
+//     .then((isEqual) => {
+//       if (!isEqual) {
+//         const error = new Error("Wrong Password");
+//         error.statusCode = 401;
+//         throw error;
+//       }
+//       const token = jwt.sign(
+//         {
+//           email: loadedUser.email,
+//           userId: loadedUser._id.toString(),
+//         },
+//         "supersecretcode",
+//         { expiresIn: "12h" }
+//       );
+//       res.status(200).json({
+//         message: "User Logged",
+//         token: token,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       next();
+//     });
+// };
