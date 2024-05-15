@@ -15,31 +15,38 @@ const {
   sortDesc,
   getImage,
 } = require("../controllers/event.Controller");
-const isAuth = require("../middlewares/isAuth");
+const {
+  isAuthenticatedUser,
+  isAdmin,
+} = require("../middlewares/app.authentification");
 
 router.get("/", getEvents);
 
-router.get("/:id", getEvent);
+router.get("/:id", isAuthenticatedUser, getEvent);
 
-router.post("/", isAuth, createEvent);
+router.post("/", isAuthenticatedUser, createEvent);
 
-router.patch("/:id", isAuth, updateEvent);
+router.patch("/:id", isAuthenticatedUser, updateEvent);
 
-router.delete("/:id", isAuth, deleteEvent);
+router.delete("/:id", isAuthenticatedUser, deleteEvent);
 
-router.get("/search/:title", isAuth, searchEventWithTitle);
+router.get("/search/:title", isAuthenticatedUser, searchEventWithTitle);
 
-router.get("/categorie/:categorie", isAuth, searchEventWithCategorie);
+router.get(
+  "/categorie/:categorie",
+  isAuthenticatedUser,
+  searchEventWithCategorie
+);
 
-router.get("/date/:date", isAuth, searchEventWithDate);
+router.get("/date/:date", isAuthenticatedUser, searchEventWithDate);
 
-router.get("/sort/:price", isAuth, sortAsc);
+router.get("/sort/:price", isAuthenticatedUser, sortAsc);
 
-router.get("/sortdesc/:price", isAuth, sortDesc);
+router.get("/sortdesc/:price", isAuthenticatedUser, sortDesc);
 
 //route to approve the service by admin
-router.post("/:id/approve", approveEvent);
-router.get("/approved/:isApproved", isAuth, getApprovedEvents);
+router.post("/:id/approve", isAdmin, approveEvent);
+router.get("/approved/:isApproved", isAuthenticatedUser, getApprovedEvents);
 
 //route to get image
 

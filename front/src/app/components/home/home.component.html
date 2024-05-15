@@ -1,4 +1,7 @@
-<app-navbar></app-navbar>
+
+
+
+  <app-navbar></app-navbar>
   <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
     <div class="absolute top-0 w-full h-full bg-center bg-cover"
       style='background-image: url("https://media.istockphoto.com/id/157215464/fr/photo/sidi-bou-sa%C3%AFd-%C3%A0-tunis.jpg?s=612x612&w=0&k=20&c=-R3K5xJhRWPCfGDead64h8gR86r-k2axNydDbtQ0Vno=");'>
@@ -7,8 +10,8 @@
     <div class="container relative mx-auto">
       <div class="items-center flex flex-wrap">
         <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-          <div class="pr-12">
-            <h1 class="text-white font-serif text-5xl">
+          <div class="pr-12 title" >
+            <h1  class="text-white font-serif text-5xl" [@textanimation]>
               habiby welcome to Tunisia.
             </h1>
 
@@ -17,18 +20,17 @@
       </div>
     </div>
   </div>
-  <section class="pb-20 bg-gray-300 -mt-24">
-    <div class="container mx-auto px-4">
-      <app-events></app-events>
-      <div id="tunisia">
-        <app-mytunisia></app-mytunisia>
-      </div>
-      </div>
-      </section>
+  <app-events></app-events>
+  <app-mytunisia></app-mytunisia>
+  <section id="post">
   <app-add-post></app-add-post>
-  <app-ourteam></app-ourteam>
-  <app-evaluation></app-evaluation>
-  <section id="contact">
-    <app-contact></app-contact>
   </section>
+  <section id="Ourteam">
+  <app-ourteam ></app-ourteam>
+</section>
+  <app-evaluation></app-evaluation>
+  <section id="Contact">
+  <app-contact ></app-contact>
+</section>
+
 <app-footer></app-footer>

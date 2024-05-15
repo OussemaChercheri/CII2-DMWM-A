@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin", "superadmin"],
-      default: "admin",
+      enum: ["user", "admin"],
+      default: "user",
     },
     verified: {
       type: Boolean,
@@ -68,4 +68,3 @@ userSchema.methods.generateEmailVerificationToken = function () {
 const User = mongoose.model("Users", userSchema);
 
 module.exports = User;
-

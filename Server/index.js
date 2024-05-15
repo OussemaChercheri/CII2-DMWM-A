@@ -5,7 +5,7 @@ const eventRoute = require("./routes/event.routes");
 const statisticRoute = require("./routes/statistic.routes");
 const userRoute = require("./routes/user.routes");
 const authRoute = require("./routes/auth.routes");
-const reserveRouter = require("./routes/reservation.routes");
+const reservRouter = require("./routes/reservation.routes");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./utils/swagger");
 
@@ -28,7 +28,7 @@ app.use("/api/events", eventRoute);
 app.use("/api/statistic", statisticRoute);
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
-app.use("/api/reserve", reserveRouter);
+app.use("/api/reserve", reservRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from Node API Server updated");
