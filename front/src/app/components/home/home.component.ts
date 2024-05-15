@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
         });
   }
 
-  JumpToSection(section:any =""){
+  JumpToSection(section:any){
     document.getElementById(section)!.scrollIntoView({behavior: 'smooth'});
 }
   /*isSignInPopupVisible: boolean = false;

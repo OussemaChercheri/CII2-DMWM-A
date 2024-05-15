@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 //declare var google:any;
 @Component({
   selector: 'app-login',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent  {
+
   constructor(private _auth:AuthService, private router:Router){}
   // ngOnInit(): void {
   //   google.account.id.initialize({
@@ -24,21 +26,18 @@ login() {
   .subscribe(
     res=>{
       this.token=res;
-      localStorage.setItem('token',this.token.myToken)
+      localStorage.setItem('access_token',this.token.myToken)
       this.router.navigate(['/home'])
-      
+
 
     },
     err=>{
       console.log(err);
     }
   )
- 
 }
-
   author={
     email:'',
     password:''
   }
-
 }

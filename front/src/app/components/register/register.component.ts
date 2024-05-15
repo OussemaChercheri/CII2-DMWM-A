@@ -16,16 +16,11 @@ export class RegisterComponent {
   constructor(private _auth:AuthService , private router:Router){}
 
   ngOnInit(): void {
-    
+
   }
 
   register() {
-    let formData = new FormData();
-    formData.append('username', this.author.username);
-    formData.append('email', this.author.email);
-    formData.append('password', this.author.password);
-    console.log(formData);
-    this._auth.register(formData)
+    this._auth.register(this.author)
     .subscribe({
       next: res => {
         this.router.navigate(['/login']);
@@ -37,6 +32,6 @@ export class RegisterComponent {
     });
 
   }
-  
+
 
 }

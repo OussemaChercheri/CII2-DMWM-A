@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -18,13 +17,24 @@ import { OurteamComponent } from './components/ourteam/ourteam.component';
 import { TouristComponent } from './components/tourist/tourist.component';
 import { GalleriaModule } from 'primeng/galleria';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { NavbarAllpagesComponent } from './components/navbar-allpages/navbar-allpages.component';
+import { CrudsertorsComponent } from './components/crudsertors/crudsertors.component';
+import { AllservicesComponent } from './components/allservices/allservices.component';
+import { CrudComponent } from './components/crud/crud.component';
+import { AllEventsComponent } from './components/all-events/all-events.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
+
 
 
 @NgModule({
   declarations:[
     AppComponent,
     LoginComponent,
-
     RegisterComponent,
     HomeComponent,
     ContactComponent,
@@ -35,20 +45,28 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     MytunisiaComponent,
     OurteamComponent,
     TouristComponent,
-    AddPostComponent
-    
-    
+    AddPostComponent,
+    NavbarAllpagesComponent,
+    CrudsertorsComponent,
+    AllservicesComponent,
+    CrudComponent,
+    AllEventsComponent,
+
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    GalleriaModule
+    GalleriaModule,
+    BrowserAnimationsModule
 
-  ],
-  providers: [],
+],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

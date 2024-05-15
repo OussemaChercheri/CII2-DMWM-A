@@ -9,5 +9,4 @@ export class EventsComponent  {
   ngOnInit(){
     AOS.init();
   }
-
 }
