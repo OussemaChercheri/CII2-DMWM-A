@@ -22,7 +22,7 @@ const {
 
 router.get("/", getEvents);
 
-router.get("/:id", isAuthenticatedUser, getEvent);
+router.get("/:id", getEvent);
 
 router.post("/", isAuthenticatedUser, createEvent);
 

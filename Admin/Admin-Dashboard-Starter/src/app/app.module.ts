@@ -18,9 +18,6 @@ import { RequestsComponent } from './requests/requests.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { AuthComponent } from './auth/auth.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TouristicservicesComponent } from './touristicservices/touristicservices.component';
@@ -38,9 +35,6 @@ import { TouristicservicesComponent } from './touristicservices/touristicservice
     ServicebycategoryComponent,
     ServicebymounthComponent,
     EventsComponent,
-    AuthComponent,
-    LoginComponent,
-    SignupComponent,
     PageNotFoundComponent,
     TouristicservicesComponent
   ],

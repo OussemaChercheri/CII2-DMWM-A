@@ -1,4 +1,18 @@
-<app-servicebycategory></app-servicebycategory>
-
+<!-- <app-servicebycategory></app-servicebycategory> -->
+<div class="section">
+    <h2 class="section-title text-2xl font-bold mb-4">Touristic services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let service of services" class="bg-white rounded-lg shadow-md p-4">
+            <h2 class="text-lg font-bold mb-2">{{ service.name }}</h2>
+            <p class="text-gray-600 mb-2">{{ service.description }}</p>
+            <p class="text-gray-800 mb-2">Price: {{ service.price }}$</p>
+            <p class="text-gray-800 mb-2">Category: {{ service.category }}</p>
+            <p class="text-gray-800 mb-2">Location: {{ service.location }}</p>
+            <div class="flex items-center mt-2">
+                <img *ngIf="service.image" [src]="'http://localhost:3001/api/services/getimage/' + service._id" alt="Service Image" class="w-30 h-25 mr-2 rounded">
+                <a *ngIf="service.document" [href]="'http://localhost:3001/api/services/download/' + service._id + '/document'" target="_blank" class="text-blue-500">View Document</a>
+            </div>
+        </div>
+    </div>
 
 
