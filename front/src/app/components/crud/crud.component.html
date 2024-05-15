@@ -3,7 +3,7 @@
   <div class="header row  justify-between ">
     <input type="text" class=" fa fa-search border border-primary" #ch placeholder="Filter" style="border-radius: 50px; width: 30%; margin-left: 30%;">
     <button type="submit"  class="bg-indigo-500 text-white rounded-full font-semibold col-1 px-7 py-3 hover:bg-indigo-400 focus:bg-indigo-600 focus:outline-none">Search</button>
-    <button class="btn btn-secondary col-2 flex align-items-end" (click)="add()" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-plus"></i> Add Service</button>
+    <button class="btn btn-secondary col-2 flex align-items-end" (click)="add()" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-plus"></i> Add Event</button>
   </div>
 </div>
   <table class="table">
@@ -36,7 +36,8 @@
         <td>{{data.dateregistredeb | date}}</td>
         <td>{{data.dateregistrefin | date}}</td>
         <td>{{data.nbrtickets}}</td>
-        <td>{{data.image}}</td>
+        <td><img *ngIf="event.image" [src]="'http://localhost:3001/api/getimage/' + event._id" alt="Event Image"
+          /></td>
         <td>
             <button class="text-info" (click)="edit(data)"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fas fa-edit "></i></button>&nbsp;
             <button class="text-danger" (click)="deleteser(data)"> <i class="fa fa-trash"></i></button>

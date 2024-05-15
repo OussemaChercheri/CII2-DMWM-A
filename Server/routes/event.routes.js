@@ -24,11 +24,11 @@ router.get("/", getEvents);
 
 router.get("/:id", getEvent);
 
-router.post("/", isAuthenticatedUser, createEvent);
+router.post("/", createEvent);
 
-router.patch("/:id", isAuthenticatedUser, updateEvent);
+router.patch("/:id", updateEvent);
 
-router.delete("/:id", isAuthenticatedUser, deleteEvent);
+router.delete("/:id", deleteEvent);
 
 router.get("/search/:title", isAuthenticatedUser, searchEventWithTitle);
 
@@ -45,7 +45,7 @@ router.get("/sort/:price", isAuthenticatedUser, sortAsc);
 router.get("/sortdesc/:price", isAuthenticatedUser, sortDesc);
 
 //route to approve the service by admin
-router.post("/:id/approve", isAdmin, approveEvent);
+router.post("/:id/approve", approveEvent);
 router.get("/approved/:isApproved", isAuthenticatedUser, getApprovedEvents);
 
 //route to get image

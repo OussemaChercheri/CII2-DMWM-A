@@ -22,12 +22,12 @@ const {
 
 router.get("/", getServices);
 router.get("/:id", getService);
-router.post("/", isAuthenticatedUser, createService);
-router.patch("/:id", isAuthenticatedUser, updateService);
-router.delete("/:id", isAuthenticatedUser, deleteService);
+router.post("/", createService);
+router.patch("/:id", updateService);
+router.delete("/:id", deleteService);
 
 //route for downloading the document
-router.get("/download/:id/document", isAdmin, downloadDocument);
+router.get("/download/:id/document", downloadDocument);
 
 router.get("/getimage/:id", getImage);
 
@@ -35,7 +35,7 @@ router.get("/getimage/:id", getImage);
 router.post("/:id/wishlist", isAuthenticatedUser, addToWishlist);
 
 //route to approve the service by admin
-router.post("/:id/approve", isAdmin, approveService);
+router.post("/:id/approve", approveService);
 router.get("/approved/:isApproved", isAuthenticatedUser, getApprovedServices);
 
 //route for calculating statistics by category
