@@ -1,0 +1,44 @@
+<div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="form-container">
+            <h1 class="text-3xl font-bold mb-6">Update Profile</h1>
+            <form #adminForm="ngForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+                    <input type="text" class="form-input w-full" id="name" placeholder="Enter your name" [(ngModel)]="name" name="name">
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                    <input type="email" class="form-input w-full" id="email" placeholder="Enter your email" [(ngModel)]="email" name="email">
+                </div>
+
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-700 font-bold mb-2">Phone</label>
+                    <input type="tel" class="form-input w-full" id="phone" placeholder="Enter your phone number" [(ngModel)]="phone" name="phone">
+                </div>
+
+                <div class="mb-4">
+                    <label for="photo" class="block text-gray-700 font-bold mb-2">Photo</label>
+                    <input type="file" class="form-input" id="photo" name="photo" (change)="onPhotoChange($event)">
+                    <img *ngIf="photoPreview" [src]="photoPreview" alt="Selected Photo" class="mt-2 w-40 h-40 object-cover">
+                </div>
+
+                <div class="mb-4">
+                    <label for="content" class="block text-gray-700 font-bold mb-2">Content</label>
+                </div>
+
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="result-container">
+            <h1 class="text-3xl font-bold mb-6">Profile</h1>
+            <p><strong>Name:</strong> {{ name }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>Phone:</strong> {{ phone }}</p>
+            <img *ngIf="photo" [src]="photo" alt="Uploaded Photo" class="mt-2 w-40 h-40 object-cover">
+        </div>
+    </div>
+</div>

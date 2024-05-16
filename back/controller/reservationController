@@ -1,0 +1,65 @@
+const Reservation = require('../model/reservation.js');
+
+//get All Reservation
+const getAllReservation=async(req,res)=>{
+    try {
+        const reservations = await Reservation.find();
+        res.status(200).json(reservations);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//get reservation by id
+const getReservationById=async(req,res)=>{
+    try{
+        const reservation=await Reservation.findById(req.params.id);
+        res.status(200).json(reservation);
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//create reservation
+const createReservation=async(req,res)=>{
+    try{
+        const reservation=new Reservation(req.body);
+        await reservation.save();
+        res.status(200).json(reservation);
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//update the date of of reservation
+const updateReservation=async(req,res)=>{
+    try{
+        const reservation=await Reservation.findById(req.params.id);
+        if(reservation){
+            reservation.date=req.body.date;
+            const updatedReservation=await reservation.save();
+            res.status(200).json(updatedReservation);
+        }else{
+            res.status(404).json({message:"Reservation not found"});
+        }
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//cancel the reservation
+const canselReservation=async(req,res)=>{
+    try{
+        const { id } = req.params;
+        const reservation = await Event.findByIdAndDelete(id);
+        if(!reservation)
+            res.status(404).json({message: "Error! Reservation not Found!"});
+        res.status(200).json({message:"Successfully deleted!"});
+        }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports={
+    getAllReservation,getReservationById,createReservation,updateReservation,canselReservation
+}
