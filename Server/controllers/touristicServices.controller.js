@@ -37,6 +37,8 @@ const getService = async (req, res) => {
 
 const createService = async (req, res) => {
   try {
+    const userId = req.user.id;
+
     upload.fields([
       { name: "image", maxCount: 1 },
       { name: "document", maxCount: 1 },
@@ -46,7 +48,8 @@ const createService = async (req, res) => {
       }
 
       const data = req.body;
-      const service = new Service(data);
+      const serviceData = { ...data, user_id: userId }; // Include user_id in service data
+      const service = new Service(serviceData);
 
       // Check if image file is uploaded
       if (

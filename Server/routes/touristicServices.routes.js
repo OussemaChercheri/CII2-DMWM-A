@@ -22,7 +22,7 @@ const {
 
 router.get("/", getServices);
 router.get("/:id", getService);
-router.post("/", createService);
+router.post("/", isAuthenticatedUser, createService);
 router.patch("/:id", updateService);
 router.delete("/:id", deleteService);
 

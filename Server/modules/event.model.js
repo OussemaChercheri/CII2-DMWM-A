@@ -51,6 +51,11 @@ const eventSchema = mongoose.Schema({
     type: String,
     default: 0,
   },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    required: true,
+  },
 });
 
 //create n event model

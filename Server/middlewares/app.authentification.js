@@ -7,13 +7,14 @@ const User = require("../modules/user.model");
 const isAuthenticatedUser = async (req, res, next) => {
   try {
     // Get access token from authorization headers
+    console.log(req.headers.authorization);
     const { authorization } = req.headers;
 
     if (!authorization) {
       return res.status(403).json({
         errorCode: 3,
         message: "ACCESS FORBIDDEN",
-        description: "Authorization header is required",
+        description: "Authorization header is required, please log in...",
       });
     }
 
@@ -32,17 +33,18 @@ const isAuthenticatedUser = async (req, res, next) => {
           description: "User not found",
         });
       }
+      console.log(user);
       // Check if user is logged in
-      if (user.status === "login") {
-        req.user = user;
-        next();
-      } else {
-        return res.status(401).json({
-          errorCode: 1,
-          message: "FAILED",
-          description: "Unauthorized access. Please login to continue",
-        });
-      }
+      //if (user.status === "login") {
+      req.user = user;
+      next();
+      //} else {
+      // return res.status(401).json({
+      //   errorCode: 1,
+      //   message: "FAILED",
+      //   description: "Unauthorized access. Please login to continue",
+      //   });
+      //}
     } catch (error) {
       return res.status(401).json({
         errorCode: 11,

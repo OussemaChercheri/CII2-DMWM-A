@@ -40,7 +40,6 @@ const signin = async (req, res, next) => {
   if (!email || !password || email === "" || password === "") {
     return next(errorHandler(400, "All fields are required"));
   }
-
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) {
@@ -62,7 +61,7 @@ const signin = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
       })
-      .json(rest);
+      .json({ ...rest, mytoken: token });
   } catch (error) {
     next(error);
   }
