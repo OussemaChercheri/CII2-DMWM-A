@@ -35,8 +35,7 @@ const router = express.Router();
  *       401:
  *         description: Unauthorized
  */
-router.route("/get-user").get(isAuthenticatedUser, getUser);
-
+router.route("/").get(getUser);
 // Get user by ID route
 /**
  * @swagger
@@ -76,9 +75,24 @@ router.route("/get-user/:id").get(isAuthenticatedUser, isAdmin, getUserById);
  *     description: Update user information
  *     security:
  *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               role:
+ *                 type: string
  *     responses:
  *       200:
  *         description: User information updated successfully
+ *       400:
+ *         description: Bad request
  *       401:
  *         description: Unauthorized
  */
@@ -100,6 +114,6 @@ router.route("/update-user").put(isAuthenticatedUser, updateUser);
  *       401:
  *         description: Unauthorized
  */
-router.route("/delete-user").delete(isAuthenticatedUser, deleteUser);
+router.route("/:id").delete(deleteUser);
 
 module.exports = router;

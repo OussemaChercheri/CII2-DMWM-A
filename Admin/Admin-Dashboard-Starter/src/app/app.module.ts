@@ -14,13 +14,13 @@ import { SideNavComponent } from './layout/side-nav/side-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestsComponent } from './requests/requests.component';
 
-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TouristicservicesComponent } from './touristicservices/touristicservices.component';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -36,7 +36,9 @@ import { TouristicservicesComponent } from './touristicservices/touristicservice
     ServicebymounthComponent,
     EventsComponent,
     PageNotFoundComponent,
-    TouristicservicesComponent
+    TouristicservicesComponent,
+    UsersComponent
+
   ],
   imports: [
     BrowserModule,

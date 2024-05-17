@@ -36,7 +36,7 @@
         <td>{{data.dateregistredeb | date}}</td>
         <td>{{data.dateregistrefin | date}}</td>
         <td>{{data.nbrtickets}}</td>
-        <td><img *ngIf="event.image" [src]="'http://localhost:3001/api/getimage/' + event._id" alt="Event Image"
+        <td><img *ngIf="event.image" [src]="'http://localhost:3001/api/getimage/' + data._id" alt="Event Image" width="80" height="80"
           /></td>
         <td>
             <button class="text-info" (click)="edit(data)"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fas fa-edit "></i></button>&nbsp;

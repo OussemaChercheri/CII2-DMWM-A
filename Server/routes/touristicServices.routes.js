@@ -23,8 +23,8 @@ const {
 router.get("/", getServices);
 router.get("/:id", getService);
 router.post("/", isAuthenticatedUser, createService);
-router.patch("/:id", updateService);
-router.delete("/:id", deleteService);
+router.patch("/:id", isAuthenticatedUser, updateService);
+router.delete("/:id", isAuthenticatedUser, deleteService);
 
 //route for downloading the document
 router.get("/download/:id/document", downloadDocument);

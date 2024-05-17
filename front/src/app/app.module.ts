@@ -24,6 +24,7 @@ import { CrudComponent } from './components/crud/crud.component';
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AllComponent } from './components/all/all.component';
 
 
 
@@ -51,6 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AllservicesComponent,
     CrudComponent,
     AllEventsComponent,
+    AllComponent,
 
 
 

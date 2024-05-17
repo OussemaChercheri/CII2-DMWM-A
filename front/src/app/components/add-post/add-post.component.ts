@@ -13,7 +13,7 @@ export class AddPostComponent {
 
   createPost() {
     // Check if user is logged in (you might have a service or authentication mechanism)
-    const isLoggedIn = this.isLoggedIn(); // Implement your own logic here
+    /* const isLoggedIn = this.isLoggedIn(); // Implement your own logic here
 
     // If user is not logged in, redirect to login page
     if (!isLoggedIn) {
@@ -21,7 +21,7 @@ export class AddPostComponent {
     } else {
       // If user is logged in, navigate to create post page
       this.router.navigate(['/crud']); // Adjust the route according to your application
-    }
+    } */
   }
 
   isLoggedIn(): boolean {
